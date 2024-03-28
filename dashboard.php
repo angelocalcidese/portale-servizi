@@ -5,11 +5,10 @@
 
 <body>
   <?php include("../portale/header.php"); ?>
-
   <div class="container-fluid">
     <div class="row">
-      
-
+    <?php include("../portale/menu.php"); ?>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       
         <div class="container px-4 py-5" id="icon-grid">
           <h2 class="pb-2 border-bottom">Dashboard</h2>
@@ -88,6 +87,7 @@
               </div>
             </div>
           </div>
+</main>
         </div>
 </div>
   <!-- jQuery library -->
@@ -97,7 +97,6 @@
   <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/fontawesome/js/all.min.js"></script>
   <script src="assets/DataTables/datatables.min.js"></script>
-  <script src="assets/service.js"></script>
   <script>
     $(document).ready(function() {
       $("#inputnascita").datepicker($.datepicker.regional['it']);
@@ -106,6 +105,33 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script>
   <script src="dashboard.js"></script>
+  <script>
+  var menu = <?php include("api/getMenu.php"); ?>;
+    console.log("MENU: ", menu);
+
+    for(var a=0; a < menu.length; a++){
+        var voce = '<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">';
+            voce +='<span>'+ menu[a].voce + '</span>';   
+            voce +='<a class="link-secondary" href="#" aria-label="Add a new report">';
+            voce +='<svg class="bi"><use xlink:href="#plus-circle"/></svg>';
+            voce +='</a>';
+            voce +='</h6>';
+            voce +='<ul class="nav flex-column">';
+            var link = menu[a].link;
+            for(var b =0; b < link.length; b++){
+              voce +='';
+              voce +='<li class="nav-item">';
+              voce +='<a class="nav-link d-flex align-items-center gap-2" href="../' + link[b].url + '/">';
+              voce +='<i class="fa-solid ' + link[b].icon + '"></i>';
+              voce += link[b].dicitura;
+              voce +='</a>';
+              voce +='</li>';
+            }
+            voce +='</ul>';
+        $("#dynamic-menu").append(voce);
+    }
+   
+</script>
 </body>
 
 </html>

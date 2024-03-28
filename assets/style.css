@@ -63,8 +63,8 @@
     --bs-btn-hover-border-color: #6528e0;
     --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
     --bs-btn-active-color: var(--bs-btn-hover-color);
-    --bs-btn-active-bg: #5a23c8;
-    --bs-btn-active-border-color: #5a23c8;
+    --bs-btn-active-bg: #6A887C;
+    --bs-btn-active-border-color: #6A887C;
 }
 
 .bd-mode-toggle {
@@ -82,4 +82,19 @@ div.dt-container {
 }
 .table-responsive {
     margin-bottom: 40px;
+}
+.logo {  
+width:220px;
+}
+.navbar-brand {
+    background-color: #a3cd44 !important;
+}
+.bg-easy {
+    background-color: #212529 !important;
+}
+.nav-link {
+    color: #6A887C;
+}
+.nav-link:hover {
+    color: #a3cd44;
 }

@@ -21,6 +21,8 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
             $user->company = $row["company"];
         }
         print_r($user);
+        header("Location: dashboard.php");
+exit();
     } else {
         echo "email o password errati o non esistenti";
     }
