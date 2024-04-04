@@ -11,7 +11,7 @@ for (var a = 0; a < menu.length; a++) {
     for (var b = 0; b < link.length; b++) {
         voce += '';
         voce += '<li class="nav-item">';
-        voce += '<a class="nav-link d-flex align-items-center gap-2" href="../' + link[b].url + '/">';
+        voce += '<a class="nav-link d-flex align-items-center gap-2" href="../' + link[b].url + '">';
         voce += '<i class="fa-solid ' + link[b].icon + '"></i>';
         voce += link[b].dicitura;
         voce += '</a>';

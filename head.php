@@ -13,8 +13,8 @@
   <link href="../portale/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../portale/assets/jquery-ui/jquery-ui.css">
   <link href="../portale/assets/style.css" rel="stylesheet">
-  <link href="../portale/assets/login.css" rel="stylesheet">
   <link href="../portale/assets/features.css" rel="stylesheet">
+  <link href="../portale/assets/modals.css" rel="stylesheet">
   <link href="../portale/assets/fontawesome/css/all.min.css" rel="stylesheet">
   <link href="../portale/assets/DataTables/datatables.min.css" rel="stylesheet">
 
