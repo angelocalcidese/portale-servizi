@@ -19,13 +19,27 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
             $user->email = $row["email"];
             $user->telefono = $row["telefono"];
             $user->company = $row["company"];
+
+            $active = $row["active"];
+            $firstaccess = $row["firstaccess"];
         }
 
-        $obj = json_encode($user);
-
-        setcookie("easySW", base64_encode($obj), time() + (86400 * 30), "/"); // 86400 = 1 day
-        header("Location: portale/dashboard.php");
-        exit();
+        if(password_verify($_POST['password'], $psw) && ($active != 1)){
+            echo "Utente non abilitato";
+        } else if(password_verify($_POST['password'], $psw) &&  $firstaccess == 1){
+            header("Location: portale/changePassword.php?id=". $user->id."&email=". $user->email);
+        } else if(password_verify($_POST['password'], $psw)){
+            $obj = json_encode($user);
+            setcookie("easySW", base64_encode($obj), time() + 86400); // 86400 = 1 day
+            header("Location: portale/dashboard.php");
+            exit();
+        } else {
+            echo '<div class="alert alert-danger" role="alert">
+                email o password errati
+                </div>';
+            //echo "email o password errati";
+        }
+        
     } else {
         echo "email o password errati o non esistenti";
     }
@@ -33,6 +47,6 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
     
 } elseif(isset($_COOKIE["easySW"])) {
     header("Location: portale/dashboard.php");
-}
+} 
 
 ?>

@@ -1,24 +1,32 @@
 <?php 
 require_once "config.php";
 
-if (isset($_COOKIE["easySW"])) {
+$permission = array();
+$conta = 0;
 
+
+if (isset($_COOKIE["easySW"])) {
     $user_params = json_decode(base64_decode($_COOKIE["easySW"]));
-    $permission = array();
-    $sql1 = "SELECT * FROM `permission` WHERE `user` = " . $user_params->id;
-    $result1 = $conn->query($sql1);
-    if ($result1->num_rows > 0) {
-        while ($row1 = $result1->fetch_assoc()) {
-           array_push($permission, $row1["function"]);
-        }
+    if($user_params->id){
+        $conta++;
     }
-} else {
-    header("Location: /login.php");
-    exit();
-}
+    if(count($permission) == 0){
+       $sql1 = "SELECT * FROM `permission` WHERE `user` = " . $user_params->id;
+        $result1 = $conn->query($sql1);
+        if ($result1->num_rows > 0) {
+            while ($row1 = $result1->fetch_assoc()) {
+            $conta++;
+            array_push($permission, $row1["function"]);
+            }
+        } 
+    } else {
+        
+    }
+    
+} 
 
     $menu = array();
-
+    
     $sql = "SELECT * FROM `typemenu`";
     $result = $conn->query($sql);
 
@@ -43,7 +51,8 @@ if (isset($_COOKIE["easySW"])) {
                         $key = array_search($row1["id"], $permission);
                         //print_r($key);
 
-                        if (($key ==! null) || ($key === 0)) { 
+                        if (($key ==! null) || ($key === 0)) {
+                            $conta++;
                             array_push($section->link, $voice);
                         }
                     }
@@ -53,8 +62,14 @@ if (isset($_COOKIE["easySW"])) {
 
             array_push($menu, $section);
         }
-    } 
+    }
 //print_r($menu);
-echo json_encode($menu);
+//header("Location: ../login.php");
+if($conta > 0){
+    echo json_encode($menu);
+} else {
+    echo $conta;
+}
+
 
 ?>
