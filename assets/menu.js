@@ -1,7 +1,7 @@
 
 if (menu == 0) {    
     window.location.href = 'logout.php';
-    console.log(menu)
+    //console.log(menu)
 }
 for (var a = 0; a < menu.length; a++) {
     var voce = '<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">';

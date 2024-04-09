@@ -19,10 +19,7 @@ if (isset($_COOKIE["easySW"])) {
             array_push($permission, $row1["function"]);
             }
         } 
-    } else {
-        
-    }
-    
+    } 
 } 
 
     $menu = array();
