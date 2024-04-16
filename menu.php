@@ -46,6 +46,6 @@
 <script src="../portale/assets/fontawesome/js/all.min.js"></script>
 <script src="../portale/assets/DataTables/datatables.min.js"></script>
 <script>
-  var menu = <?php include("../portale/api/getMenu.php"); ?>;
+  
 </script>
 <script src="../portale/assets/menu.js"></script>

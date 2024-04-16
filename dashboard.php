@@ -19,14 +19,14 @@
 
             <div class="col d-flex align-items-start icon-badge hide">
               <div class="icon-square bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                <i class="fa-solid "></i>
+                <a href="#" class="btn btn-primary link-out">
+                  <i class="fa-solid "></i>
+                  <p class="text-body-emphasis"></p>
+                </a>
               </div>
               <div>
-                <h3 class="fs-2 text-body-emphasis"></h3>
-                <p></p>
-                <a href="#" class="btn btn-primary link-out">
-                  Vai all'applicazione
-                </a>
+
+
               </div>
             </div>
 
