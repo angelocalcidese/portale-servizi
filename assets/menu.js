@@ -39,6 +39,7 @@ function callMenu() {
         success: function (data) {
             menu = data;
             populateMenu(data);
+            createRow();
         },
         error: function (error) {
             console.log("funzione chiamata quando la chiamata fallisce", error);
@@ -46,7 +47,41 @@ function callMenu() {
         }
     });
 }
+/*function createRow() {
+    for (var a = 0; a < menu.length; a++) {
+        var row = $("#dashboard-icon .icon-structure").clone();
+        $(row).removeClass("hide");
+        $(row).attr('id', "icon-dash-" + a)
+        $(row).find(".title-row").text(menu[a].voce);
+        var link = menu[a].link;
+        $(row).find(".icon-badge").remove();
+        for (var b = 0; b < link.length; b++) {
+            var icon = $("#dashboard-icon .icon-badge").clone();
+            $(icon).removeClass("hide");
+            $(icon).find(".text-body-emphasis").text(link[b].dicitura);
+            $(icon).find(".fa-solid").addClass(link[b].icon);
+            $(icon).find(".link-out").attr('href', "/" + link[b].url);
+            $(row).find(".icon-badge-list").append(icon);
+        }
+        if (link.length > 0) {
+            $("#dashboard-icon-new").append(row);
+        }
+    }
+}*/
+function createRow() {
+    console.log("MENU:", menu);
+    for (var a = 0; a < menu.length; a++) {
+        var link = menu[a].link;
+        for (var b = 0; b < link.length; b++) {
+            var row = $("#dashboard-clone .card-home").clone();
+            row.append('<i class="fa-solid ' + link[b].icon + ' fa-2xl"></i>');
+            row.append('<h5>' + link[b].dicitura + '</h5>');
+            row.attr("href", "/" + link[b].url);
+            $("#dashboard-grid .card-style").append(row);
+        }
+    }
+}
 callMenu();
 $(".link-menu-left").click(function () {
     localStorage.removeItem("tab");
- })
+});
