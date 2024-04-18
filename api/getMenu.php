@@ -25,12 +25,12 @@ if (isset($_COOKIE["easySW"])) {
         $menu = array();
         $sql = "SELECT * FROM `typemenu`";
         $result = $conn->query($sql);
-
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $section  = new stdClass();
                 $section->voce = $row["voce"];
                 $section->link = array();
+                $section->user = $user_params;
 
                 //$key = array_search($row["id"], $permission);
                 //print_r($key);

@@ -17,7 +17,7 @@ function populateMenu(menu) {
         for (var b = 0; b < link.length; b++) {
             voce += '';
             voce += '<li class="nav-item">';
-            voce += '<a class="nav-link d-flex align-items-center gap-2 link-menu-left" href="../' + link[b].url + '">';
+            voce += '<a class="nav-link d-flex align-items-center gap-2 link-menu-left" onclick="changeAddons()" href="../' + link[b].url + '">';
             voce += '<i class="fa-solid ' + link[b].icon + '"></i>';
             voce += link[b].dicitura;
             voce += '</a>';
@@ -31,6 +31,24 @@ function populateMenu(menu) {
     }  
 }
 
+function changeAddons() {
+    localStorage.removeItem("tab");
+};
+function readCookie() {
+    $.ajax({
+        method: "GET",
+        url: "../portale/api/getCookie.php",
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            $("#user-login span").text(data.nome + " " + data.cognome);
+        },
+        error: function (error) {
+            console.log("funzione chiamata quando la chiamata fallisce", error);
+        }
+    });
+}
+
 function callMenu() {
     $.ajax({
         method: "GET",
@@ -40,34 +58,15 @@ function callMenu() {
             menu = data;
             populateMenu(data);
             createRow();
+            readCookie();
         },
         error: function (error) {
             console.log("funzione chiamata quando la chiamata fallisce", error);
-           
+            window.location.href = '../portale/logout.php';
         }
     });
 }
-/*function createRow() {
-    for (var a = 0; a < menu.length; a++) {
-        var row = $("#dashboard-icon .icon-structure").clone();
-        $(row).removeClass("hide");
-        $(row).attr('id', "icon-dash-" + a)
-        $(row).find(".title-row").text(menu[a].voce);
-        var link = menu[a].link;
-        $(row).find(".icon-badge").remove();
-        for (var b = 0; b < link.length; b++) {
-            var icon = $("#dashboard-icon .icon-badge").clone();
-            $(icon).removeClass("hide");
-            $(icon).find(".text-body-emphasis").text(link[b].dicitura);
-            $(icon).find(".fa-solid").addClass(link[b].icon);
-            $(icon).find(".link-out").attr('href', "/" + link[b].url);
-            $(row).find(".icon-badge-list").append(icon);
-        }
-        if (link.length > 0) {
-            $("#dashboard-icon-new").append(row);
-        }
-    }
-}*/
+
 function createRow() {
     console.log("MENU:", menu);
     for (var a = 0; a < menu.length; a++) {
@@ -82,6 +81,4 @@ function createRow() {
     }
 }
 callMenu();
-$(".link-menu-left").click(function () {
-    localStorage.removeItem("tab");
-});
+

@@ -101,3 +101,31 @@ function controlAlarm(id) {
         //console.log("ALARM: " + alarm + "ID: " + id);
     }
 }
+
+/** FORMAT DATA */
+
+var format = "dd/mm/yyyy";
+var match = new RegExp(format
+    .replace(/(\w+)\W(\w+)\W(\w+)/, "^\\s*($1)\\W*($2)?\\W*($3)?([0-9]*).*")
+    .replace(/m|d|y/g, "\\d"));
+var replace = "$1/$2/$3$4"
+    .replace(/\//g, format.match(/\W/));
+
+function doFormat(target) {
+    target.value = target.value
+        .replace(/(^|\W)(?=\d\W)/g, "$10")   // padding
+        .replace(match, replace)             // fields
+        .replace(/(\W)+/g, "$1");            // remove repeats
+}
+
+$(".format-data").keyup(function (e) {
+    if (!e.ctrlKey && !e.metaKey && (e.keyCode == 32 || e.keyCode > 46))
+        doFormat(e.target)
+});
+$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+})

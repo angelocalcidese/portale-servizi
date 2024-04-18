@@ -19,11 +19,9 @@
       <hr class="my-3">
       <ul class="nav flex-column mb-auto">
         <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="#">
-            <svg class="bi">
-              <use xlink:href="#gear-wide-connected" />
-            </svg>
-            Settings
+          <a class="nav-link d-flex align-items-center gap-2" id="user-login" href="#">
+            <i class="fa-regular fa-user"></i>
+            <span></span>
           </a>
         </li>
         <li class="nav-item">
@@ -46,6 +44,6 @@
 <script src="../portale/assets/fontawesome/js/all.min.js"></script>
 <script src="../portale/assets/DataTables/datatables.min.js"></script>
 <script>
-  
+
 </script>
 <script src="../portale/assets/menu.js"></script>
