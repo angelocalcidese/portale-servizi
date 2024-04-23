@@ -23,7 +23,7 @@
 
             <!-- Remind Passowrd -->
             <div id="formFooter">
-                <a class="underlineHover" href="#">Hai dimenticato la Password?</a>
+                <a class="underlineHover" href="resetPassword.php">Hai dimenticato la Password?</a>
             </div>
 
         </div>

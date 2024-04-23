@@ -1,5 +1,6 @@
 
 menu = [];
+var userlog = [];
 function populateMenu(menu) {
   if (menu == 0) {    
     window.location.href = '../portale/logout.php';
@@ -41,6 +42,7 @@ function readCookie() {
         dataType: 'json',
         success: function (data) {
             console.log(data);
+            userlog = data;
             $("#user-login span").text(data.nome + " " + data.cognome);
         },
         error: function (error) {

@@ -1,3 +1,4 @@
+var mesiMap = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
 function closeModal() {
     window.location.reload(true);
 }
