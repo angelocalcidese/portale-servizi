@@ -3,9 +3,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require 'phpmailer/src/Exception.php';
-require 'phpmailer/src/PHPMailer.php';
-require 'phpmailer/src/SMTP.php';
+require 'portale/api/phpmailer/src/Exception.php';
+require 'portale/api/phpmailer/src/PHPMailer.php';
+require 'portale/api/phpmailer/src/SMTP.php';
 
 function sendEmail($email, $message, $title){
     
