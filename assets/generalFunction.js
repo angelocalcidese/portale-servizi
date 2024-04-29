@@ -130,3 +130,17 @@ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggl
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 })
+
+function getBase64(file) {
+    var reader = new FileReader();
+    var result = null;
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        console.log(reader.result);
+        result = reader.result;
+    };
+    reader.onerror = function (error) {
+        console.log('Error: ', error);
+    };
+    return result;
+}
