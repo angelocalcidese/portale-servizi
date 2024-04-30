@@ -1,4 +1,17 @@
 var mesiMap = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+var mesiSchema = [{ val: "01", mese: "Gennaio" },
+{ val: "02", mese: "Febbraio" },
+{ val: "03", mese: "Marzo" },
+{ val: "04", mese: "Aprile" },
+{ val: "05", mese: "Maggio" },
+{ val: "06", mese: "Giugno" },
+{ val: "07", mese: "Luglio" },
+{ val: "08", mese: "Agosto" },
+{ val: "09", mese: "Settembre" },
+{ val: "10", mese: "Ottobre" },
+{ val: "11", mese: "Novembre" },
+{ val: "12", mese: "Dicembre" }
+];
 function closeModal() {
     window.location.reload(true);
 }
@@ -131,16 +144,15 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
-function getBase64(file) {
-    var reader = new FileReader();
-    var result = null;
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-        console.log(reader.result);
-        result = reader.result;
-    };
-    reader.onerror = function (error) {
-        console.log('Error: ', error);
-    };
+function controlFileType(file) {
+    var result = true;
+    var size = (file.size / 1024 / 1024).toFixed(2);
+    
+    if ((file.type != "application/pdf") && (file.type != "image/png") && (file.type != "image/jpeg")) {
+        result = false;
+    } else if (size > 10) {
+        console.log("SIZE: ", size);
+        result = false;
+    }
     return result;
 }
