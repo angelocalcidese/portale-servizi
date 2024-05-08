@@ -62,21 +62,30 @@ function controlAlarm(id) {
     var alarm = 0;
     //console.log("ID: " + id);
     var data = searchData(id);
+    //console.log("DATA: ", data);
     $(".alarm-not").addClass("hide");
     $(".list-not-alarm").addClass("hide");
     $(".list-not-alarm span").text("");
     
     if ((data.stato == "Attiva") || (data.stato == "In Vendita")) {
-         /* SCADENZA TAGLIANDO */
-        var tagliandokm = data.km / data.tagliando;
+        /* SCADENZA TAGLIANDO */
+        var km = data.km;
+        if (data.ultimo_tagliando) {
+            km = data.ultimo_tagliando;
+        }
+        var tagliandokm = km / data.tagliando;
         var prossimo = Math.ceil(tagliandokm) * data.tagliando;
-       
 
-        if ((prossimo - data.km) < 3000) {
+        if (data.ultimo_tagliando) {
+            prossimo = parseInt(data.ultimo_tagliando) + parseInt(data.tagliando);
+            $("#prossimo-tagliando span").text(prossimo);
+        }
+
+        if (((prossimo - km) < 3000)) { 
             //console.log("ALARM TAGLIANDO: " + data.targa);
             $("#alarm-tagliando").removeClass("hide");
             $(".alarm-tagliando-not").removeClass("hide");
-            $(".alarm-tagliando-not span").text(prossimo - data.km);
+            $(".alarm-tagliando-not span").text(prossimo - km);
             alarm++;
         }
         /* SCADENZA DISTRIBUZUIONE */
