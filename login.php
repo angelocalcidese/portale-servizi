@@ -4,9 +4,10 @@
 <?php include("portale/head-login.php"); ?>
 <style>
     .hide {
-        display:none !important; 
+        display: none !important;
     }
 </style>
+
 <body>
     <div class="wrapper fadeInDown">
         <div id="formContent">
@@ -32,16 +33,34 @@
             counter--;
             // Display 'counter' wherever you want to display it.
             if (counter <= 0) {
-                    clearInterval(interval);
+                clearInterval(interval);
                 $('#timer').addClass("hide");
                 $('.otp-style').addClass("hide");
                 $("#nuovo-codice").removeClass("hide");
                 return;
-            }else{
+            } else {
                 $('#secondi').text(counter);
-           // console.log("Timer --> " + counter);
+                // console.log("Timer --> " + counter);
             }
         }, 1000);
+
+        $("#login-btn").on("click", function() {
+            $("#login-btn").addClass("hide");
+            $("#spin-login").removeClass("hide");
+            $("#form-login").submit();
+        });
+
+        $("#login-btn-otp").on("click", function() {
+            $("#login-btn-otp").addClass("hide");
+            $("#spin-login").removeClass("hide");
+            $("#login-otp").submit();
+        });
+
+        $("#nuovo-codice").on("click", function() {
+            $("#nuovo-codice").addClass("hide");
+            $("#spin-login").removeClass("hide");
+            $("#login-otp").submit();
+        });
     </script>
 </body>
 

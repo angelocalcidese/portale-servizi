@@ -23,12 +23,13 @@ if (isset($_COOKIE["easySW"])) {
         //callType();
         //echo json_encode($permission);
         $menu = array();
-        $sql = "SELECT * FROM `typemenu`";
+        $sql = "SELECT * FROM `typemenu` ORDER BY `position`";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $section  = new stdClass();
                 $section->voce = $row["voce"];
+                $section->id = $row["id"];
                 $section->link = array();
                 $section->user = $user_params;
 

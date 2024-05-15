@@ -4,10 +4,15 @@ include("portale/otp.php");
 include("portale/api/sendMailMessage.php"); 
 include("portale/api/sendOtpEmail.php"); 
 
-$form = '<form action="" method="POST">
+$form = '<form action="" method="POST" id="form-login">
 <input type="text" id="email" class="fadeIn second" name="email" placeholder="E-MAIL">
 <input type="password" id="password" class="fadeIn third" name="password" placeholder="PASSWORD">
-<input type="submit" class="fadeIn fourth" value="Log In">
+<div class="text-center mt-2 mb-2 hide" id="spin-login">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<input type="submit" id="login-btn" class="fadeIn fourth" value="Log In">
 </form>';
 
 $footer = '<div id="formFooter">
@@ -49,11 +54,16 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
             Se entro 60 secondi non riverai il codice OTP potrai richiedere un nuovo codice
             </div>';
             
-            echo '<form action="" method="POST">
+            echo '<form action="" method="POST" id="login-otp">
                 <input type="text" id="otp" class="fadeIn second otp-style" name="otp" placeholder="OTP">
                     <input type="hidden" id="email" name="email" value="'.$_POST['email'].'">
-                    <input type="hidden" id="password" name="password"  value="'.$_POST['password'].'">
-                    <input type="submit" class="fadeIn fourth otp-style" id="submit-login" value="Log In">
+                    <input type="hidden" id="password" name="password"  value="'.$_POST['password']. '">
+                    <div class="text-center mt-2 mb-2 hide" id="spin-login">
+                    <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                    </div>
+                    </div>
+                    <input type="submit" class="fadeIn fourth otp-style" id="login-btn" value="Log In">
                     <input type="submit" class=" hide" id="nuovo-codice" value="Invia nuovo codice">
                     <p id="timer">(<b id="secondi"></b> secondi)</p>
                 </form>';
@@ -67,11 +77,16 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
                     Se entro 60 secondi non riverai il codice OTP potrai richiedere un nuovo codice
                     </div>';
                     
-                    echo '<form action="" method="POST">
+                    echo '<form action="" method="POST" id="login-otp">
                 <input type="text" id="otp" class="fadeIn second otp-style" name="otp" placeholder="OTP">
                     <input type="hidden" id="email" name="email" value="'.$_POST['email'].'">
-                    <input type="hidden" id="password" name="password"  value="'.$_POST['password'].'">
-                    <input type="submit" class="fadeIn fourth otp-style" id="submit-login" value="Log In">
+                    <input type="hidden" id="password" name="password"  value="'.$_POST['password']. '">
+                    <div class="text-center mt-2 mb-2 hide" id="spin-login">
+                    <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                    </div>
+                    </div>
+                    <input type="submit" class="fadeIn fourth otp-style" id="login-btn" value="Log In">
                     <input type="submit" class=" hide" id="nuovo-codice" value="Invia nuovo codice">
                     <p id="timer">(<b id="secondi"></b> secondi)</p>
                 </form>';

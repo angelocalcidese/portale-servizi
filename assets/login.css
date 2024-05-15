@@ -52,7 +52,8 @@ h2.active {
 
 input[type=button],
 input[type=submit],
-input[type=reset] {
+input[type=reset] , 
+.btn-login {
     background-color: #6A887C;
     border: none;
     color: white;

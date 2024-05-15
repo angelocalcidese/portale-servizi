@@ -26,4 +26,5 @@ if($_SERVER["REQUEST_METHOD"] == "OPTIONS")
     exit(0);
 }
 //From here, handle the request as it is ok
+
 ?>
