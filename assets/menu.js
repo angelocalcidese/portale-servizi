@@ -82,5 +82,35 @@ function createRow() {
         }
     }
 }
+function companyService() {
+    $.ajax({
+        method: "GET",
+        url: '../portale/api/getCompanyService.php',
+        dataType: 'json', //restituisce un oggetto JSON
+        complete: function (resp) {
+            console.log("RISPOSTA COMPANY", resp.responseJSON);
+            result = resp.responseJSON;
+            // IMMAGINE LOGO
+            if (result[0].foto) {
+              var src = "../../portale/logo_img/" + result[0].foto;
+              $(".logo").attr("src", src);  
+            }
+            $("#logo-spinner").addClass("hide");
+            $(".logo").removeClass("hide");
+
+            // COLORI HEADER
+            if (result[0].colori) {
+                var colori = jQuery.parseJSON(result[0].colori);
+
+                if (colori.logo) { $(".navbar-brand").css("background-color", colori.logo); }
+                if (colori.header) { $(".bg-easy").css("background-color", colori.header); }
+                if (colori.textmenu) { $(".nav-link").css("color", colori.textmenu); }
+            }
+            
+        }
+    });
+}
+
 callMenu();
+companyService();
 

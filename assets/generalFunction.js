@@ -165,3 +165,15 @@ function controlFileType(file) {
     }
     return result;
 }
+function controlFileTypeImg(file) {
+    var result = true;
+    var size = (file.size / 1024 / 1024).toFixed(2);
+
+    if ((file.type != "image/png") && (file.type != "image/jpeg")) {
+        result = false;
+    } else if (size > 10) {
+        console.log("SIZE: ", size);
+        result = false;
+    }
+    return result;
+}

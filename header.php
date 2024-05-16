@@ -110,8 +110,12 @@
 </svg>
 
 <header class="navbar sticky-top flex-md-nowrap p-0 shadow bg-easy" data-bs-theme="dark">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white " href="../portale/dashboard.php">
-    <img src="../portale/assets/img/logo.png" class="logo" />
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 fs-6 text-white " style="text-align:center; padding: 0;" href="../portale/dashboard.php">
+    <img src="../portale/assets/img/logo.png" class="logo hide" />
+
+    <div class="spinner-border text-secondary" id="logo-spinner" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
   </a>
 
   <ul class="navbar-nav flex-row d-md-none">

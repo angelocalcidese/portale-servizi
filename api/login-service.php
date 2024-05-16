@@ -51,7 +51,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
                     echo '</div>';
             echo '<div class="alert alert-warning" role="alert">
             &Egrave; stato inviato a <b>'.$user->email.'</b> il codice OTP per accedere.
-            Se entro 60 secondi non riverai il codice OTP potrai richiedere un nuovo codice
+            Se entro 120 secondi non riverai il codice OTP potrai richiedere un nuovo codice
             </div>';
             
             echo '<form action="" method="POST" id="login-otp">

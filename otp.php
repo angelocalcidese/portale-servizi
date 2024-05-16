@@ -1,6 +1,6 @@
 <?php
 
-function generateOTP(string $sercet_key, int $time_step = 60, int $length = 6): string
+function generateOTP(string $sercet_key, int $time_step = 120, int $length = 6): string
 {
     $counter = floor(time() / $time_step);
     $data = pack("NN", 0, $counter);
