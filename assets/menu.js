@@ -1,5 +1,6 @@
 
 menu = [];
+role = [];
 var userlog = [];
 function populateMenu(menu) {
   if (menu == 0) {    
@@ -88,7 +89,7 @@ function companyService() {
         url: '../portale/api/getCompanyService.php',
         dataType: 'json', //restituisce un oggetto JSON
         complete: function (resp) {
-            console.log("RISPOSTA COMPANY", resp.responseJSON);
+           // console.log("RISPOSTA COMPANY", resp.responseJSON);
             result = resp.responseJSON;
             // IMMAGINE LOGO
             if (result[0].foto) {
@@ -111,6 +112,30 @@ function companyService() {
     });
 }
 
+function getRole() {
+    $.ajax({
+        method: "GET",
+        url: '../portale/api/getRole.php',
+        dataType: 'json', //restituisce un oggetto JSON
+        complete: function (resp) {
+            console.log("RISPOSTA ROLE", resp.responseJSON);
+            result = resp.responseJSON;
+            role = result;
+        }
+    });
+}
+
+function searchRole(id) {
+    var resp = id;
+    for (var a = 0; a < role.length; a++) {
+        if (id == role[a].id) {
+            resp = role[a].ruolo;
+        }
+    }
+    return resp;
+}
+
 callMenu();
 companyService();
+getRole();
 

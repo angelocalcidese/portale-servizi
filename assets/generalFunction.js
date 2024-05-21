@@ -67,25 +67,43 @@ function controlAlarm(id) {
     $(".list-not-alarm").addClass("hide");
     $(".list-not-alarm span").text("");
     
-    if ((data.stato == "Attiva") || (data.stato == "In Vendita")) {
+    if (data.stato != "Venduta") {
         /* SCADENZA TAGLIANDO */
         var km = data.km;
         if (data.ultimo_tagliando) {
             km = data.ultimo_tagliando;
         }
+
         var tagliandokm = km / data.tagliando;
         var prossimo = Math.ceil(tagliandokm) * data.tagliando;
 
         if (data.ultimo_tagliando) {
             prossimo = parseInt(data.ultimo_tagliando) + parseInt(data.tagliando);
-            $("#prossimo-tagliando span").text(prossimo);
+            var trakm = prossimo - km;
+            $("#prossimo-tagliando span").text(trakm);
+           
+           
+            
+        } else {
+            var trakm = prossimo - km;
+            $("#prossimo-tagliando span").text(trakm);
+        }
+        console.log("tagliando: ", prossimo - km);
+        if (data.km > prossimo) {
+            console.log("ERRORE: ", prossimo);
+            $("#alarm-tagliando").removeClass("hide");
+            $(".alarm-tagliando-not").removeClass("hide");
+            var text = " Tagliando scaduto da ";
+            $(".alarm-tagliando-not span").text(text + (data.km - prossimo));
+            alarm++;
         }
 
         if (((prossimo - km) < 3000)) { 
             //console.log("ALARM TAGLIANDO: " + data.targa);
             $("#alarm-tagliando").removeClass("hide");
             $(".alarm-tagliando-not").removeClass("hide");
-            $(".alarm-tagliando-not span").text(prossimo - km);
+            var text = " Tagliando scadrà tra ";
+            $(".alarm-tagliando-not span").text(text + (prossimo - km));
             alarm++;
         }
         /* SCADENZA DISTRIBUZUIONE */
