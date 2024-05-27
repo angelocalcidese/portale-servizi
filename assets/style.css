@@ -98,3 +98,9 @@ width:100%;
 .nav-link:hover {
     color: #a3cd44;
 }
+.sidebar-heading{
+    cursor: pointer;
+}
+.sidebar-heading:hover {
+    color: #a3cd44 !important;
+}

@@ -2,35 +2,82 @@
 menu = [];
 role = [];
 var userlog = [];
+function togleMenuCollapse(id) {
+    $(".symbol-" + id).toggleClass("hide");
+    $("#colla-" + id).collapse('toggle');
+}
+
+function searchMenuActive() {
+   // console.log(window.location.href);
+    var href = window.location.href;
+    var splitted = href.split("/");
+    //console.log(splitted[3]);
+    var voice = splitted[3];
+    var menuOk = false;
+    if (voice == "portale") {
+        menuOk = true;
+    }
+    if (voice != "portale") {
+        $(".nav-link").removeClass("active");
+        $("#link-" + voice).addClass("active");
+        // $("h1.h2").text("TEST");
+    }   
+    
+    for (var a = 0; a < menu.length; a++) {
+        var voce = menu[a].voce
+        var link = menu[a].link;
+        var id = menu[a].id;
+        for (var b = 0; b < link.length; b++) {
+            if (voice == link[b].url) {
+                $("h1.h2").text(voce);
+                togleMenuCollapse(id);
+                console.log("ID", id);
+                menuOk = true;
+               // $("h2").text(link[b].dicitura);
+            }
+        }
+    }
+    if (menuOk == false) {
+        window.location.href = '../portale/dashboard.php';
+    }
+}
+
 function populateMenu(menu) {
   if (menu == 0) {    
     window.location.href = '../portale/logout.php';
     //console.log(menu)
     }
+    var up = "up";
+    var down = "down";
     for (var a = 0; a < menu.length; a++) {
-        var voce = '<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">';
+        var voce = '<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase" onclick="togleMenuCollapse(' + menu[a].id + ')">';
         voce += '<span>' + menu[a].voce + '</span>';
         voce += '<a class="link-secondary" href="#" aria-label="Add a new report">';
-        voce += '<svg class="bi"><use xlink:href="#plus-circle"/></svg>';
+        //voce += '<svg class="bi" id="symbol-' + menu[a].id + '" onclick="togleMenuCollapse(' + menu[a].id + ')"><use xlink:href="#plus-circle"/></svg>';
+        voce += '<button class="btn btn-light symbol-' + menu[a].id + '" id="symbol-' + menu[a].id + '-down" ><i class="fa-solid fa-circle-chevron-down" style="color:#6A887C"></i></button>';
+        voce += '<button class="btn btn-light hide symbol-' + menu[a].id + '" id="symbol-' + menu[a].id + '-up"><i class="fa-solid fa-circle-chevron-up" style="color:#6A887C"></i></button>';
         voce += '</a>';
         voce += '</h6>';
-        voce += '<ul class="nav flex-column">';
+        voce += '<div class="collapse" style="background-color:#f4eede" id="colla-' + menu[a].id + '"><ul class="nav flex-column">';
         var link = menu[a].link;
         for (var b = 0; b < link.length; b++) {
             voce += '';
             voce += '<li class="nav-item">';
-            voce += '<a class="nav-link d-flex align-items-center gap-2 link-menu-left" onclick="changeAddons()" href="../' + link[b].url + '">';
+            voce += '<a class="nav-link d-flex align-items-center gap-2 link-menu-left" id="link-' + link[b].url + '" onclick="changeAddons()" href="../' + link[b].url + '">';
             voce += '<i class="fa-solid ' + link[b].icon + '"></i>';
             voce += link[b].dicitura;
             voce += '</a>';
             voce += '</li>';
         }
-        voce += '</ul>';
+        voce += '</ul></div>';
         if (link.length > 0) {
             $("#dynamic-menu").append(voce);
         }
         //$("#icon-grid").clone().appendTo("#dashboard-icon");
     }  
+
+
+    searchMenuActive();
 }
 
 function changeAddons() {
@@ -134,8 +181,19 @@ function searchRole(id) {
     }
     return resp;
 }
+function searchRoleNull(id) {
+    var resp = null;
+    for (var a = 0; a < role.length; a++) {
+        if (id == role[a].id) {
+            resp = role[a].ruolo;
+        }
+    }
+    return resp;
+}
 
-callMenu();
-companyService();
-getRole();
+$(document).ready(function () {
+    callMenu();
+    companyService();
+    getRole();
+});
 

@@ -24,7 +24,10 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
     $result = $conn->query($sql);
     //echo $_POST['username']." - ". $_POST['email'];
     $otp =  generateOTP("123");
-    //echo $otp;
+    if($test == true){
+        echo $otp;
+    }
+    
     $psw = "";
     $user = new stdClass();
 

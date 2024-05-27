@@ -4,6 +4,8 @@ $username = "Sql1718069";
 $password = "Pomezia2023!";
 $dbname = "Sql1718069_5";
 
+$test = false;
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
