@@ -1,10 +1,16 @@
-<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+<div class="container position-absolute" id="butt-menu">
+  <button type="button" class="btn btn-light open-button" onclick="closeNav();">Open <i class="fa-solid fa-chevron-right"></i></button>
+  <button type="button" class="btn btn-light close-button" onclick="closeNav();"><i class="fa-solid fa-chevron-left"></i> Close</button>
+</div>
+<div id="menu-sidebar" class=" sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+
   <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="sidebarMenuLabel">EasySW</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+      <button type="button" class="btn-close" style="position:absolute;" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+
       <ul class="nav flex-column">
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="../portale/dashboard.php">
@@ -36,6 +42,7 @@
     </div>
   </div>
 </div>
+
 <!-- jQuery library -->
 <script src="../portale/assets/jquery/jquery-3.7.1.min.js"></script>
 <script src="../portale/assets/jquery-ui/jquery-ui.js"></script>

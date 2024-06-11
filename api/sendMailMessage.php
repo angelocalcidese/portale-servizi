@@ -3,13 +3,14 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+
 require 'phpmailer/src/Exception.php';
 require 'phpmailer/src/PHPMailer.php';
 require 'phpmailer/src/SMTP.php';
 
 function sendEmail($email, $message, $title){
     
-
+require '../config.php';
     $mail = new PHPMailer(true); //se true vengono sollevate eventuali eccezioni utili per il debugging
 
     try {
@@ -18,15 +19,15 @@ function sendEmail($email, $message, $title){
         $mail->isSMTP();                                       //Invio tramite SMTP
         $mail->Host       = 'smtps.aruba.it';                  //Server SMTP
         $mail->SMTPAuth   = true;                              //Abilita autenticazione SMTP
-        $mail->Username   = 'info@easysw.it';           //SMTP username
-        $mail->Password   = 'E4sy6w!2023';                      //SMTP password
+        $mail->Username   = $emailAddr;           //SMTP username
+        $mail->Password   = $emailPsw;                      //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;    //Abilita TLS implicito
         $mail->Port       = 465;                               //Porta SMTP
 
         //Recipients
-        $mail->setFrom('info@easysw.it', 'Portale EasySw');
+        $mail->setFrom($emailAddr, $emailObj);
         $mail->addAddress($email, 'Dest');  //Indirizzo destinatario
-        $mail->addReplyTo('info@easysw.it', 'User');          //Indirizzo di risposta
+        $mail->addReplyTo($emailAddr, 'User');          //Indirizzo di risposta
         //$mail->addCC('cc@gmail.com');                         //Campo CC  (Copia Carbone)    
        // $mail->addBCC('info@easysw.it');                       //Campo BCC (Copia Carbone Nascosta)
 

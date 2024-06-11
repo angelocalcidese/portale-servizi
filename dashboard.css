@@ -54,8 +54,8 @@
 #dashboard-grid .card-home {
   cursor:pointer;
   color:#212529;
-  width: 190px;
-  height: 190px;
+  width: 180px;
+  height: 150px;
   border-radius: 30px;
   background: #e0e0e0;
   margin: 10px;
@@ -65,11 +65,33 @@
     -5px -5px 30px #ffffff;
   text-decoration: none;
 }
+#dashboard-grid .card-home.titleGroup{
+  background: #f4de9c;
+}
 #dashboard-grid .card-home:hover {
   box-shadow: 5px 5px 20px #A3CD44,
     -5px -5px 30px #ffffff;
   color: #6a887c;
 }
-#dashboard-grid .card-home h5{
-  margin-top:25px;
+.titleGroup h6{
+  margin-top:15%;
+}
+#butt-menu{
+  width:110px;
+  margin: 18px 0 0 9%;
+}
+#butt-menu button{
+   color: #6A887C;
+}
+#butt-menu .open-button{
+  display:none;
+}
+#butt-menu.close-menu {
+  margin: 75px 0 0 5px;
+}
+#butt-menu.close-menu .open-button{
+  display: block;
+}
+#butt-menu.close-menu .close-button {
+  display: none;
 }

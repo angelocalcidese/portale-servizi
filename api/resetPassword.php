@@ -5,7 +5,8 @@ $form = '<form action="" method="POST">
                 <input type="text" id="email" class="fadeIn second " name="email" value="" placeholder="E-MAIL">
                 <input type="submit" class="fadeIn fourth" value="Invia">
             </form>';
-
+echo '<div class="alert alert-warning center" id="alet" style="text-align:center" role="alert">Inserisci la tua email per il recupero della password</div>';
+echo $form;
 
 if (!empty($_POST['email'])) {
 
@@ -36,3 +37,7 @@ if (!empty($_POST['email'])) {
     echo '<div class="alert alert-warning center" style="text-align:center" role="alert">Inserisci la tua email per il recupero della password</div>';
     echo $form;
 }
+?>
+<script>
+
+</script>

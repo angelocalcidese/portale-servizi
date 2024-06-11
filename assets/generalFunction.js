@@ -195,3 +195,15 @@ function controlFileTypeImg(file) {
     }
     return result;
 }
+
+function exportXLS(nome, tabella) {
+    var table = $("#" + tabella);
+    //console.log(table);
+    //debugger;
+    TableToExcel.convert(table[0], {
+        name: nome + `.xlsx`,
+        sheet: {
+            name: nome
+        }
+    });
+}

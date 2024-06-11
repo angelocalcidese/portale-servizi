@@ -1,9 +1,18 @@
 <?php
+// Db Params
 $servername = "127.0.0.1:3306";
 $username = "Admin";
 $password = "p4ssw0rd";
 $dbname = "easysw";
 
+// email params
+$emailAddr = "info@easysw.it";
+$emailObj = "Portale EasySw.it";
+$emailPsw = "E4sy6w!2023";
+$emailTeams = "EasySw";
+$emailAddress = "https://www.easysw.it/";
+
+// other Params
 $test = true;
 
 // Create connection

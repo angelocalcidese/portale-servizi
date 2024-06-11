@@ -42,7 +42,7 @@ function searchVeicle(id) {
     }
     return targa;
 }
-
+/*
 function popMulticard(righe) {
     multicard = righe;
     for (i = 0; i < righe.length; i++) {
@@ -90,7 +90,7 @@ function allCall() {
             tablePagination();
         }
     });
-}
+}*/
 
 function cambioTab(tab){
     $(".tabs-veicolo").addClass("hide");

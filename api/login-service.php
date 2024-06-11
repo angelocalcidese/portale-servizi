@@ -1,7 +1,7 @@
 <?php 
 require_once "portale/config.php";
 include("portale/otp.php"); 
-include("portale/api/sendMailMessage.php"); 
+include("portale/api/sendMailMessageLogin.php"); 
 include("portale/api/sendOtpEmail.php"); 
 
 $form = '<form action="" method="POST" id="form-login">
