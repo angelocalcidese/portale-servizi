@@ -90,7 +90,9 @@ input[type=reset]:active {
     -ms-transform: scale(0.95);
     transform: scale(0.95);
 }
-
+input[type=submit]:disabled {
+    background-color: #CCCCCC;
+}
 input[type=text], input[type=password] {
     background-color: #f6f6f6;
     border: none;
@@ -213,7 +215,7 @@ input[type=text]:placeholder {
     -webkit-animation-delay: 0.4s;
     -moz-animation-delay: 0.4s;
     animation-delay: 0.4s;
-    background-color:#A3CD44;
+    background-color:#c1c2c0;
     border-radius: 10px 10px 0 0 ;
     margin-bottom: 20px;
 }

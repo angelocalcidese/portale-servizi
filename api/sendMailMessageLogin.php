@@ -30,12 +30,10 @@ require 'portale/config.php';
         $mail->setFrom($emailAddr, $emailObj);
         $mail->addAddress($email, 'Dest');  //Indirizzo destinatario
         $mail->addReplyTo($emailAddr, 'User');          //Indirizzo di risposta
-        //$mail->addCC('cc@gmail.com');                         //Campo CC  (Copia Carbone)    
-        // $mail->addBCC('info@easysw.it');                       //Campo BCC (Copia Carbone Nascosta)
-
+    
         //Content
-        $mail->isHTML(true);                                  //Abilita invio in HTML
-        $mail->Subject = $title;                           //Oggetto 
+        $mail->isHTML(true);       //Abilita invio in HTML
+        $mail->Subject = $title;   //Oggetto 
         $mail->Body    = $message; //Corpo email
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients'; //Testo alternativo
 

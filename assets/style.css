@@ -84,7 +84,7 @@ div.dt-container {
     margin-bottom: 40px;
 }
 .logo {  
-width:100%;
+max-width:100%;
 }
 .navbar-brand {
     /*background-color: #a3cd44 !important;*/
@@ -103,4 +103,16 @@ width:100%;
 }
 .sidebar-heading:hover {
     color: #a3cd44 !important;
+}
+.select-btn-int, .select-btn{
+    background:#a3cd44;
+}
+.select-voice {
+    color:#a3cd44 !important;
+    font-weight: bold;
+}
+.active-tab{
+    color:#0000ff;
+    text-decoration: underline;
+    font-weight: 500;
 }

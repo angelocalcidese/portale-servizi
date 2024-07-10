@@ -2,7 +2,13 @@
 require_once "portale/config.php";
 include("portale/otp.php"); 
 include("portale/api/sendMailMessageLogin.php"); 
-include("portale/api/sendOtpEmail.php"); 
+include("portale/api/sendOtpEmail.php");
+
+if(isset($_GET['otp'])){
+    $otpActive = null;
+}
+
+//echo "OTP: ".$otpActive;
 
 $form = '<form action="" method="POST" id="form-login">
 <input type="text" id="email" class="fadeIn second" name="email" placeholder="E-MAIL">
@@ -48,7 +54,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
             echo "Utente non abilitato";
         } else if(password_verify($_POST['password'], $psw) &&  $firstaccess == 1){
             header("Location: portale/changePassword.php?id=". $user->id."&email=". $user->email);
-        } else if((password_verify($_POST['password'], $psw)) && empty($_POST['otp'])){
+        } else if((password_verify($_POST['password'], $psw)) && (empty($_POST['otp']) && ($otpActive == true))){
             echo '<div class="hide">';
                     sendOtpEmail($otp, $_POST['email']);
                     echo '</div>';
@@ -70,7 +76,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
                     <input type="submit" class=" hide" id="nuovo-codice" value="Invia nuovo codice">
                     <p id="timer">(<b id="secondi"></b> secondi)</p>
                 </form>';
-         } else if((password_verify($_POST['password'], $psw)) && isset($otp) && ($_POST['otp'] != $otp)){
+         } else if((password_verify($_POST['password'], $psw)) && isset($otp) && (($_POST['otp'] != $otp) && ($otpActive == true))){
                     echo '<div class="hide">';
                     sendOtpEmail($otp, $_POST['email']);
                     echo '</div>';
@@ -93,7 +99,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
                     <input type="submit" class=" hide" id="nuovo-codice" value="Invia nuovo codice">
                     <p id="timer">(<b id="secondi"></b> secondi)</p>
                 </form>';
-        } else if((password_verify($_POST['password'], $psw)) && ($_POST['otp'] == $otp)){
+        } else if((password_verify($_POST['password'], $psw)) && (($_POST['otp'] == $otp) || ($otpActive != true))){
             $obj = json_encode($user);
             setcookie("easySW", base64_encode($obj), time() + 86400); // 86400 = 1 day
             header("Location: portale/dashboard.php");

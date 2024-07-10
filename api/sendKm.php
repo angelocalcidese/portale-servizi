@@ -17,10 +17,11 @@ $spesaextra = null;
 //echo $mese. " - " .$meseoggi;
 echo "Richiesta per il mese di: <b>".$mounth[$mese]."</b>";
 $form = '<form action="" method="POST">
-               <input type="text" id="km" class="fadeIn second numberInput" name="km" placeholder="KM">
+               <input type="text" id="km" class="fadeIn second numberInput" name="km" placeholder="KM ATTUALI DEL VEICOLO">
                 <input type="text" id="extra" class="fadeIn second numberInput" name="extra" placeholder="Spese extra del mese">
-                <input type="submit" class="fadeIn fourth" value="Invia">
+                <input type="submit" class="fadeIn fourth" id="submit" value="Invia" disabled>
             </form>';
+
 
 if (!empty($_POST['km'])) {
 
@@ -79,8 +80,23 @@ if (!empty($_POST['km'])) {
     }
     
 } else {
-    echo '<div class="alert alert-warning center" style="text-align:center" role="alert">Campo Km obbligatorio </div>';
-    echo $form;
+    $sql = "SELECT * FROM `veicoli` WHERE id =" . $veicolo;
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $kmold = $row["km"];
+            $sql1 = "SELECT * FROM `kmveicolo` WHERE `veicolo` = ". $veicolo." AND `mese`= ".$mese." AND `anno` = " . $anno;
+            $result1 = $conn->query($sql1);
+            
+            if ($result1->num_rows > 0) {
+                echo '<div class="alert alert-warning center" style="text-align:center" role="alert">Per questo mese i km sono già stati inseriti, in caso contattare il proprio responsabile</div>';
+            } else {
+              echo '<div class="alert alert-warning center" style="text-align:center" role="alert">Inserire i <b>KM ATTUALI</b> segnati dal conta km del veicolo </div>';
+              echo $form;  
+            }
+        }
+    }
+
 }
 
 ?>

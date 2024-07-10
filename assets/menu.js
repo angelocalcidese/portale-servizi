@@ -60,6 +60,7 @@ function populateMenu(menu) {
         voce += '</h6>';
         voce += '<div class="collapse" style="background-color:#f4eede" id="colla-' + menu[a].id + '"><ul class="nav flex-column">';
         var link = menu[a].link;
+        
         for (var b = 0; b < link.length; b++) {
             voce += '';
             voce += '<li class="nav-item">';

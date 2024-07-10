@@ -179,9 +179,11 @@ function goodAssingenedRemove() {
     $("#button-remove-add-goods").addClass("hide");
 }
 
+
 $(document).ready(function () {
     usersCall();
     allCall();
+    
 });
 
 /*$(window).on('resize', function () {

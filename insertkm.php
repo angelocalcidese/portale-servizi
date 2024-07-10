@@ -29,7 +29,19 @@
     <script src="../portale/assets/fontawesome/js/all.min.js"></script>
     <script src="../portale/assets/generalFunction.js"></script>
     <!--<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script>-->
-
+<?php echo '<script>
+            $("#km").keyup(function () {
+                var val = $(this).val();
+                console.log("KM INSERITI", val);
+                console.log("KM ATTUALI",' . $kmold . ');
+                if(val > ' . $kmold . '){
+                    $("#submit").prop("disabled", false);
+                } else {
+                    $("#submit").prop("disabled", true);
+                }
+            });
+            </script>';
+?>
 </body>
 
 </html>

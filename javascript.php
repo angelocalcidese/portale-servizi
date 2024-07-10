@@ -6,6 +6,7 @@
 <script src="../portale/assets/fontawesome/js/all.min.js"></script>
 <script src="../portale/assets/DataTables/datatables.min.js"></script>
 <script src="../portale/assets/DataTables/dataTables.dateTime.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="../portale/assets/moment.min.js"></script>
 <script src="../portale/assets/generalFunction.js"></script>
 <script src="assets/service.js"></script>

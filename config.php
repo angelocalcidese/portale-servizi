@@ -10,9 +10,10 @@ $emailAddr = "info@easysw.it";
 $emailObj = "Portale EasySw.it";
 $emailPsw = "E4sy6w!2023";
 $emailTeams = "EasySw";
-$emailAddress = "https://www.easysw.it/";
+$emailAddress = "http://localhost/";
 
 // other Params
+$otpActive = false;
 $test = true;
 
 // Create connection

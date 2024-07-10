@@ -1,10 +1,25 @@
 <!doctype html>
 <html lang="it" data-bs-theme="auto">
 
-<?php include("portale/head-login.php"); ?>
+<?php
+include("portale/head-login.php");
+require_once "portale/config.php";
+$color = "#FFFFFF";
+$sql = 'SELECT * FROM `configurazioni` WHERE `nome` = "colorelogin"';
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $color = $row["valore"];
+    }
+}
+?>
 <style>
     .hide {
         display: none !important;
+    }
+
+    .fadeIn.first {
+        background-color: <?php echo $color; ?>;
     }
 </style>
 

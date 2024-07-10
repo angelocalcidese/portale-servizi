@@ -35,7 +35,7 @@ if (isset($_COOKIE["easySW"])) {
 
                 //$key = array_search($row["id"], $permission);
                 //print_r($key);
-                $sql1 = "SELECT * FROM `addon` WHERE `tipologia`= " . $row["id"] . "";
+                $sql1 = "SELECT * FROM `addon` WHERE `tipologia`= " . $row["id"] . " ORDER BY `position`";
                 $result1 = $conn->query($sql1);
 
                 if ($result1->num_rows > 0) {
