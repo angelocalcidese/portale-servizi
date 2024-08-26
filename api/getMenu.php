@@ -62,15 +62,7 @@ if (isset($_COOKIE["easySW"])) {
             echo json_encode($menu);
 			//print_r($menu);
         }
-        //print_r(json_encode($menu, JSON_FORCE_OBJECT));
-        //print_r(json_encode($menu));
-
-        //header("Location: ../login.php");
-        if ($conta > 0) {
-            //echo json_encode($menu);
-        } else {
-            //echo $conta;
-        }
+        
     } 
 } 
 

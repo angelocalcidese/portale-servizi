@@ -13,6 +13,7 @@
                     if (obj.responseJSON) {
                         //console.log("riavvio");
                         counter = 60;
+                        //controlNotifiche();
                     } else {
                         //console.log("esco");
                         clearInterval(interval);

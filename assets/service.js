@@ -27,9 +27,7 @@ function popVeicles(righe) {
         element += '<td><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-square-pen"></i></button></td>';
         element += '<td><button type="button" class="btn btn-sm btn-outline-secondary" onClick="storyVeicle(' + riga.id + ')"><i class="fa-solid fa-screwdriver-wrench"></i></button></td>';
         element += '<td><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-trash"></i></button></td>';
-        $("<tr/>")
-            .append(element)
-            .appendTo("#tabella-veicoli");
+        $("<tr/>").append(element).appendTo("#tabella-veicoli");
     }
 }
 
@@ -189,5 +187,7 @@ $(document).ready(function () {
 /*$(window).on('resize', function () {
     tablePagination();
      } );*/
+
+
 
            

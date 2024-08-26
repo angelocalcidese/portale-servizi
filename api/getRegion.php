@@ -2,7 +2,7 @@
 require_once "../../portale/cors.php";
 require_once "../../portale/config.php";
 
-$sql = "SELECT * FROM `gi_regioni`";
+$sql = "SELECT * FROM `gi_regioni` ORDER BY `denominazione_regione`";
 $result = $conn->query($sql);
 $data = array();
 

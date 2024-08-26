@@ -5,7 +5,7 @@ require_once "../../portale/utility.php";
 
 $data = getRequestDataBody();
 
-$sql = "SELECT * FROM `gi_comuni` WHERE `sigla_provincia` = '" . $data["provincia"]."'";
+$sql = "SELECT * FROM `gi_comuni` WHERE `sigla_provincia` = '" . $data["provincia"]. "' ORDER BY `denominazione_ita`";
 $result = $conn->query($sql);
 $data = array();
 

@@ -1,0 +1,514 @@
+blink {
+    animation: 1s linear infinite condemned_blink_effect;
+}
+
+@keyframes condemned_blink_effect {
+    0% {
+        visibility: hidden;
+    }
+
+    50% {
+        visibility: hidden;
+    }
+
+    100% {
+        visibility: visible;
+    }
+}
+
+.bordered {}
+
+.bordered:hover {
+    transform: scale(1.1);
+    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.bordered1 {}
+
+.bordered1:hover {
+    transform: scale(1.1);
+    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.borderedx {}
+
+.borderedx:hover {
+    transform: scale(1.1);
+    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+body {
+    background-image: url(carlobase.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.table6 {
+    font-family: "Montserrat", "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 5px;
+    background: #ffffff;
+    color: #656665;
+    border: 16px solid #B2CAEA;
+    border-radius: 10px;
+}
+
+div#container {
+    min-width: 1200px;
+    min-height: 500px;
+    max-width: 1500px;
+    max-height: 1000px;
+}
+
+div#sottocontainer {
+    min-width: 850px;
+    min-height: 1500px;
+    max-width: 800px;
+    max-height: 1000px;
+}
+
+.fixed-header,
+.fixed-footer {
+    width: 100%;
+    position: fixed;
+
+    padding: 18px 0;
+    color: #fff;
+}
+
+.fixed-header {
+    top: 10;
+}
+
+.fixed-footer {
+    bottom: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    /* Center the DIV horizontally */
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 7px 25px;
+    display: inline-block;
+}
+
+h1 {
+    text-shadow: 4px 4px 8px #000000;
+    filter: DropShadow(Color=#000000, OffX=2, OffY=2);
+}
+
+h2 {
+    text-shadow: 4px 4px 8px #000000;
+    filter: DropShadow(Color=#000000, OffX=2, OffY=2);
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    font-family: Montserrat, Montserrat, courier, serif;
+}
+
+div.absolute {
+    position: absolute;
+    top: 216;
+    left: 405;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700,800);
+
+*,
+html,
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+label,
+fieldset,
+input,
+p,
+blockquote,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+
+article,
+aside,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+    display: block;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: #BA0707;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #BA0707;
+}
+
+body {
+    background: #e5e5e5;
+    color: #476C62;
+    font: 12px "Montserrat", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1;
+    width: 100%;
+}
+
+nav {
+    display: block;
+    background: #374147;
+}
+
+.menu {
+    display: block;
+}
+
+.menu li {
+    display: inline-block;
+    position: relative;
+    z-index: 100;
+}
+
+.menu li:first-child {
+    margin-left: 0;
+}
+
+.menu li a {
+    font-weight: 600;
+    text-decoration: none;
+    padding: 20px 15px;
+    display: block;
+    color: #fff;
+    transition: all 0.2s ease-in-out 0s;
+}
+
+.menu li a:hover,
+.menu li:hover>a {
+    color: #fff;
+    background: #afc81b;
+}
+
+.menu ul {
+    visibility: hidden;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    width: 170px;
+    position: absolute;
+    left: 0px;
+    background: #fff;
+    z-index: 99;
+    transform: translate(0, 20px);
+    transition: all 0.2s ease-out;
+}
+
+.menu ul:after {
+    bottom: 100%;
+    left: 20%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #fff;
+    border-width: 6px;
+    margin-left: -6px;
+}
+
+.menu ul li {
+    display: block;
+    float: none;
+    background: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu ul li a {
+    font-size: 12px;
+    font-weight: normal;
+    display: block;
+    color: #797979;
+    background: #fff;
+}
+
+.menu ul li a:hover,
+.menu ul li:hover>a {
+    background: #afc81b;
+    color: #fff;
+}
+
+.menu li:hover>ul {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+.menu ul ul {
+    left: 169px;
+    top: 0px;
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(20px, 20px);
+    transition: all 0.2s ease-out;
+}
+
+.menu ul ul:after {
+    left: -6px;
+    top: 10%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #fff;
+    border-width: 6px;
+    margin-top: -6px;
+}
+
+.menu li>ul ul:hover {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+.responsive-menu {
+    display: none;
+    width: 100%;
+    padding: 20px 15px;
+    background: #374147;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.responsive-menu:hover {
+    background: #374147;
+    color: #fff;
+    text-decoration: none;
+}
+
+a.homer {
+    background: #afc81b;
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+    .mainWrap {
+        width: 768px;
+    }
+
+    .menu ul {
+        top: 37px;
+    }
+
+    .menu li a {
+        font-size: 12px;
+    }
+
+    a.homer {
+        background: #374147;
+    }
+}
+
+@media (max-width: 767px) {
+    .mainWrap {
+        width: auto;
+        padding: 50px 20px;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .responsive-menu {
+        display: block;
+    }
+
+    nav {
+        margin: 0;
+        background: none;
+    }
+
+    .menu li {
+        display: block;
+        margin: 0;
+    }
+
+    .menu li a {
+        background: #fff;
+        color: #797979;
+    }
+
+    .menu li a:hover,
+    .menu li:hover>a {
+        background: #afc81b;
+        color: #fff;
+    }
+
+    .menu ul {
+        visibility: hidden;
+        opacity: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transform: initial;
+    }
+
+    .menu li:hover>ul {
+        visibility: visible;
+        opacity: 1;
+        position: relative;
+        transform: initial;
+    }
+
+    .menu ul ul {
+        left: 0;
+        transform: initial;
+    }
+
+    .menu li>ul ul:hover {
+        transform: initial;
+    }
+}
+
+@media (max-width: 480px) {}
+
+@media (max-width: 320px) {}
+
+.navbar-top {
+    clear: both;
+    height: 100px;
+    margin: 5px 0;
+}
+
+.navbar-top .navbar-logo {
+    background-color: #afc81b;
+    width: 100%;
+    height: 100px;
+}
+
+.navbar-top .logout-header {
+    float: right;
+    font-size: 16px;
+    color: #FFFFFF;
+    font-weight: 400;
+    margin-right: 45px 10px;
+    padding: 10px;
+}
+
+.navbar-top .logout-header a {
+    font-size: 16px;
+    color: #FFFFFF;
+    font-weight: 400;
+}
+
+.navbar-top .image-navbar {
+    background-color: #FFFFFF;
+    padding: 10px;
+    float: left;
+    width: 275px;
+}
+
+.logout-header {
+    float: right;
+    font-size: 16px;
+    color: #FFFFFF;
+    width:30%;
+}
+.homer {
+    width: 219px;
+}
+.hide {
+    display: none;
+}
+.logo {
+    max-width: 100%;
+}
+
+.menu-portale {
+    font-family: system-ui,
+        -apple-system,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        "Noto Sans",
+        "Liberation Sans",
+        Arial,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji";;
+    position: absolute;
+    z-index: 999;
+    top: 75px;
+    width: 219px;
+    background-color:#F8F9FA;
+    height: 100%;
+    left: -219px;
+    color: rgba(33, 37, 41, 0.75);
+}
+.menu-portale .flex-column {
+    flex-direction: column !important;
+}
+.menu-portale .gap-2 {
+    gap: .5rem !important;
+}
+.menu-portale .align-items-center {
+    align-items: center !important;
+}
+.menu-portale .d-flex {
+    display: flex !important;
+}
+.menu-portale .nav-link {
+    font-size: .875rem;
+    font-weight: 500;
+    color: rgba(33, 37, 41, 0.75);
+}
+.menu-portale .nav-item .active {
+    color: #a3cd44;
+}
+.menu-portale .sidebar-heading {
+    font-size: .75rem;
+}

@@ -3,6 +3,7 @@ menu = [];
 role = [];
 var userlog = [];
 function togleMenuCollapse(id) {
+    $(".collapse").collapse('hide');
     $(".symbol-" + id).toggleClass("hide");
     $("#colla-" + id).collapse('toggle');
 }
@@ -112,14 +113,14 @@ function callMenu() {
             readCookie();
         },
         error: function (error) {
-            console.log("funzione chiamata quando la chiamata fallisce", error);
+            //console.log("funzione chiamata quando la chiamata fallisce", error);
             window.location.href = '../portale/logout.php';
         }
     });
 }
 
 function createRow() {
-    console.log("MENU:", menu);
+    //console.log("MENU:", menu);
     for (var a = 0; a < menu.length; a++) {
         var link = menu[a].link;
         var row = $("#dashboard-clone").clone();

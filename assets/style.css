@@ -116,3 +116,62 @@ max-width:100%;
     text-decoration: underline;
     font-weight: 500;
 }
+.spinner-center {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+#body-mess tr {
+    cursor: pointer;
+    font-size: 14px;
+}
+#body-mess tr:hover td{
+    background-color: #CCCCCC !important;
+}
+
+#body-mess .active td {
+    background-color: #CCCCCC !important;
+}
+@media (max-width: 378px) {
+    .logo-container {
+        width:100%;
+        padding: 5px 0 !important;
+    }
+    .menu-button {
+        text-align: center;
+        padding:5px 0 10px 0;
+        width: 100%;
+    }
+    #dashboard-grid .card-home {
+        padding: 20px 10px !important;
+    }
+    .titleGroup {
+        width: 90%;
+        padding:10px 0 !important;
+    }
+    .titleGroup h6{
+        margin:0 !important;
+    }
+}
+@media (max-width: 767px) {
+    #butt-menu {
+        display: none;
+    }
+    #sidebarMenuLabel{
+        margin-left: 30px;
+    }
+}
+@media (min-width: 768px) {
+    .butt-menu-smart {
+        display:none;
+    }
+
+}
+@media (min-width: 500px) {
+    header .menu-button {
+        margin-right:5%;
+    }
+}

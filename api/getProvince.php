@@ -5,7 +5,7 @@ require_once "../../portale/utility.php";
 
 $data = getRequestDataBody();
 
-$sql = "SELECT * FROM `gi_province` WHERE `codice_regione` = " . $data["regione"];
+$sql = "SELECT * FROM `gi_province` WHERE `codice_regione` = " . $data["regione"]. " ORDER BY `denominazione_provincia`";
 $result = $conn->query($sql);
 $data = array();
 

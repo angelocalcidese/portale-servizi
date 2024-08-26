@@ -54,8 +54,8 @@
 #dashboard-grid .card-home {
   cursor:pointer;
   color:#212529;
-  width: 180px;
-  height: 150px;
+  /*width: 180px;
+  height: 150px;*/
   border-radius: 30px;
   background: #e0e0e0;
   margin: 10px;

@@ -13,7 +13,7 @@ $emailTeams = "EasySw";
 $emailAddress = "https://www.easysw.it/";
 
 // other Params
-$otpActive = true;
+$otpActive = false;
 $test = false;
 
 // Create connection
