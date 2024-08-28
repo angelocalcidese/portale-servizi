@@ -1,3 +1,14 @@
 #messaggiModal .container {
     width:100%;
 }
+#body-mess tr {
+    cursor: pointer;
+    font-size: 14px;
+}
+#body-mess tr:hover td {
+    background-color: #CCCCCC !important;
+}
+
+#body-mess .active td {
+    background-color: #CCCCCC !important;
+}

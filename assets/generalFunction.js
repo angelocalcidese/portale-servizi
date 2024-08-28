@@ -3,6 +3,17 @@ var errorCSVText = "";
 var userscompany = [];
 var message = [];
 var addonsList = [];
+var d = new Date();
+var day = d.getDate();
+if (day < 10) {
+    day = "0" + day;
+}
+var year = d.getFullYear();
+var mounth = d.getMonth() + 1;
+if (mounth < 10) {
+    mounth = "0" + mounth;
+}
+var strDate = day + "/" + mounth + "/" + d.getFullYear();
 
 function usersCall() {
     $.ajax({
@@ -72,7 +83,7 @@ function deactiveNotifiche() {
         url: '../portale/api/stopNotifiche.php',
         dataType: 'json', //restituisce un oggetto JSON
         complete: function (result) {
-            counterNot = 10;
+            counterNot = 5;
         }
 
         });
@@ -85,11 +96,25 @@ function deleteNotifiche(addon) {
         method: "POST",
         data: JSON.stringify({ addon: addon }),
         complete: function (result) {
-            counterNot = 5;
+            counterNot = 2;
         }
 
     });
 }
+
+function deleteNotifica(id) {
+    $.ajax({
+        url: '../portale/api/deleteNotifica.php',
+        dataType: 'json', //restituisce un oggetto JSON
+        method: "POST",
+        data: JSON.stringify({ id: id }),
+        complete: function (result) {
+            counterNot = 1;
+        }
+
+    });
+}
+
 function controlNotifiche() {
     //$("#count-notifiche").text(0);
     $("#body-not").empty();
@@ -108,9 +133,9 @@ function controlNotifiche() {
                     var notifiche = "";
                     if (data[a].view == "0") {
                         countnew++;
-                        notifiche += '<td scope="row"><i class="fa-solid fa-bell fa-shake" style="color: #f18e04;"></i></td><td><i class="fa-solid ' + data[a].icon + '"></i></td><td><a onclick="changeAddons()" href="../' + data[a].addon +'">'+ data[a].message +'</a></td>';
+                        notifiche += '<td scope="row"><i class="fa-solid fa-bell fa-shake" style="color: #f18e04;"></i></td><td><i class="fa-solid ' + data[a].icon + '"></i></td><td><a onclick="changeAddons()" href="../' + data[a].addon + '">' + data[a].message + '</a></td><td><button type="button" class="btn btn-light btn-sm" onclick="deleteNotifica(' + data[a].id +')"><i class="fa-solid fa-trash fa-sm"></i></button></td>';
                     } else {
-                        notifiche += '<td scope="row"><i class="fa-solid fa-bell"></i></td><td><i class="fa-solid ' + data[a].icon + '"></i></td><td><a onclick="changeAddons()" href="../' + data[a].addon +'">' + data[a].message +'</a></td>';
+                        notifiche += '<td scope="row"><i class="fa-solid fa-bell"></i></td><td><i class="fa-solid ' + data[a].icon + '"></i></td><td><a onclick="changeAddons()" href="../' + data[a].addon + '">' + data[a].message + '</a></td><td><button type="button" class="btn btn-light btn-sm" onclick="deleteNotifica(' + data[a].id +')"><i class="fa-solid fa-trash fa-sm"></i></button></td>';
                     }
                     $("<tr/>").append(notifiche).appendTo("#table-notifiche");
                 }
@@ -214,7 +239,11 @@ function callMessage(id) {
     for (var a = 0; a < message.length; a++){
         if (id == message[a].id) {
             idMessage = id;
-            $("#mess-da").text(searchUserComp(message[a].da));
+            if (message[a].ext != null) {
+                $("#mess-da").text(message[a].ext);
+            } else {
+                $("#mess-da").text(searchUserComp(message[a].da));
+            }
             $("#mess-il").text(message[a].day);
             $("#mess-oggetto").text(message[a].obj);
             $("#mess-messaggio").html(message[a].message);
@@ -296,6 +325,21 @@ function controlMessaggi() {
     });
 }
 
+function sendMessageExt(oggetto, messaggio, destinatario) {
+    var dest = searchUserComp(destinatario);
+    $.ajax({
+        method: "POST",
+        url: "api/sendMessage.php",
+        data: JSON.stringify({ oggetto: oggetto, messaggio: messaggio, destinatario: destinatario, day: strDate, email: dest.email }),
+        contentType: "application/json",
+        success: function (data) {
+            console.log("MESSAGGIO INVIATO");
+        },
+        error: function (error) {
+            console.log("funzione chiamata quando la chiamata fallisce", error);
+            }
+    });
+}
 
 var counterMess = 60;
 var interval3 = setInterval(function () {

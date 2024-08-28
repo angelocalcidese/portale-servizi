@@ -11,7 +11,8 @@ $data = array();
 
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        $object = new stdClass(); 
+        $object = new stdClass();
+        $object->id  = $row["id"];
         $object->addon  = $row["addon"];
         $object->icon  = $row["icon"];
         $object->message  = $row["message"];
