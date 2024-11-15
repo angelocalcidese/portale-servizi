@@ -104,7 +104,7 @@ max-width:100%;
 .sidebar-heading:hover {
     color: #a3cd44 !important;
 }
-.select-btn-int, .select-btn{
+.select-btn-int, .select-btn-doc, .select-btn{
     background:#a3cd44;
 }
 .select-voice {
@@ -174,4 +174,63 @@ max-width:100%;
     header .menu-button {
         margin-right:5%;
     }
+}
+.popover {
+    z-index: 1060;
+}
+.star-rating {
+    font-size: 1, 5rem;
+    /* Grandezza delle stelle */
+    color: #ddd;
+    /* Colore stelle non selezionate */
+    cursor: pointer;
+}
+
+.star-rating .fa-star.filled {
+    color: #f7d106;
+    /* Colore stelle selezionate */
+}
+
+.star-rating .fa-star:hover {
+    color: #f7d106;
+    /* Colore stelle al passaggio del mouse */
+}
+
+.star-rating .active {
+    color: #f7d106;
+}
+
+.folder {
+    width: 150px;
+    height: 100px;
+    background-color: #f1c40f;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor:pointer;
+}
+
+.folder:hover{
+    background-color: hwb(48 2% 1%);
+    color:#0000ff;
+}
+/* Parte superiore della cartella */
+.folder::before {
+    content: "";
+    width: 70px;
+    height: 20px;
+    background-color: #f1c40f;
+    border-radius: 5px 5px 0 0;
+    position: absolute;
+    top: -15px;
+    left: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.over-view {
+    cursor:pointer;
+    font-weight: bold;
+}
+.over-view:hover {
+    color:#476c62;
+    text-decoration: underline;
 }

@@ -46,6 +46,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
             $user->email = $row["email"];
             $user->telefono = $row["telefono"];
             $user->company = $row["company"];
+            $user->nomefornitore = $row["nome_fornitore"];
             $active = $row["active"];
             $firstaccess = $row["firstaccess"];
         }

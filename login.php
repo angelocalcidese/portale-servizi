@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="it" data-bs-theme="auto">
-
+<meta name="robots" content="noindex, nofollow" />
 <?php
 include("portale/head-login.php");
 require_once "portale/config.php";

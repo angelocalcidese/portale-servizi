@@ -5,6 +5,7 @@ var message = [];
 var addonsList = [];
 var d = new Date();
 var day = d.getDate();
+
 if (day < 10) {
     day = "0" + day;
 }
@@ -20,7 +21,7 @@ function usersCall() {
         url: '../portale/api/getUsers.php',
         dataType: 'json', //restituisce un oggetto JSON
         complete: function (user) {
-            console.log("RISPOSTA", user.responseJSON);
+            //console.log("RISPOSTA", user.responseJSON);
             userscompany = user.responseJSON;
         }
     });
@@ -181,6 +182,11 @@ function controlNotifiche() {
 $("document").ready(function () { 
     controlNotifiche();  
     controlMessaggi();
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    });
+    $(".dropdown-toggle").dropdown();
 });
 
 
@@ -218,6 +224,7 @@ function cleanMessage() {
     $("#nascondi-mess").removeClass("hide");
     $("#visualizza-mess").addClass("hide");
     $("#body-mess tr").removeClass("active");
+    $("#ok-cancella-mess").addClass("hide");
 }
 
 function changeStatusMessage(id) {
@@ -225,7 +232,7 @@ function changeStatusMessage(id) {
         url: '../portale/api/changeStatusMessage.php',
         dataType: 'json', //restituisce un oggetto JSON
         method: "POST",
-        data: JSON.stringify({ id:id }),
+        data: JSON.stringify({ id:id, stato: 1 }),
         complete: function (result) {
             counterMess = 1;
         }
@@ -255,6 +262,31 @@ function callMessage(id) {
     }
    
 }
+function deleteMessagi() {
+    $.ajax({
+        url: '../portale/api/changeStatusMessage.php',
+        dataType: 'json', //restituisce un oggetto JSON
+        method: "POST",
+        data: JSON.stringify({ id: idMessage, stato: 2 }),
+        complete: function (result) {
+            cleanMessage();
+            counterMess = 1;
+        }
+
+    });
+}
+var idMessage = null;
+function activeDel(id) {
+    idMessage = id;
+    $("#messaggio-" + id).addClass("active");
+    $("#mess-da").text("");
+    $("#mess-a").text("");
+    $("#mess-oggetto").text("");
+    $("#mess-messaggio").text("");
+    $("#nascondi-mess").addClass("hide");
+    $("#visualizza-mess").addClass("hide");
+    $("#ok-cancella-mess").removeClass("hide");
+}
 
 function controlMessaggi() {
     //$("#count-notifiche").text(0);
@@ -277,11 +309,19 @@ function controlMessaggi() {
                     if (data[a].ext != null) { mittente = data[a].ext; }
                     if (data[a].view == "0") {
                         countnew++;
-                        messaggi += '<tr id="messaggio-' + data[a].id + '" onclick="callMessage(' + data[a].id + ')"><td scope="row" ><i class="fa-solid fa-envelope fa-beat-fade" style="color: #f18e04;"></i></td><td>' + data[a].day + '</td><td>' + mittente + '</td><td>' + data[a].obj + '</td></tr>';
+                        messaggi += '<tr id="messaggio-' + data[a].id + '" >';
+                        messaggi += '<td scope="row" onclick="callMessage(' + data[a].id + ')"><i class="fa-solid fa-envelope fa-beat-fade" style="color: #f18e04;"></i></td>';
+                        messaggi += '<td onclick="callMessage(' + data[a].id + ')">' + data[a].day + '</td><td onclick="callMessage(' + data[a].id + ')">' + mittente + '</td><td onclick="callMessage(' + data[a].id + ')">' + data[a].obj + '</td>';
+                        messaggi += '<td ><button type="button" class="btn btn-outline-secondary btn-sm" onclick="activeDel(' + data[a].id + ')"><i class="fa-solid fa-trash"></i></button></td></tr>';
+                       
                     } else {
-                        messaggi += '<tr id="messaggio-' + data[a].id + '"  onclick="callMessage(' + data[a].id + ')"><td scope="row" ><i class="fa-solid fa-envelope"></i></td><td>' + data[a].day + '</td><td>' + mittente + '</td><td>' + data[a].obj + '</td></tr>';
-                    }
+                        messaggi += '<tr id="messaggio-' + data[a].id + '" >';
+                        messaggi += '<td scope="row" onclick="callMessage(' + data[a].id + ')"><i class="fa-solid fa-envelope"></i></td><td onclick="callMessage(' + data[a].id + ')">' + data[a].day + '</td>';
+                        messaggi += '<td onclick="callMessage(' + data[a].id + ')">' + mittente + '</td><td onclick="callMessage(' + data[a].id + ')">' + data[a].obj + '</td>';
+                        messaggi += '<td ><button type="button" class="btn btn-outline-secondary btn-sm" onclick="activeDel(' + data[a].id + ')"><i class="fa-solid fa-trash"></i></button></td></tr>';
+                         }
                     $("#body-mess").append(messaggi);
+                    $('[data-bs-toggle="popover"]').popover({ html: true });
                 }
 
                 if (countnew > 0) {
@@ -316,6 +356,7 @@ function controlMessaggi() {
                 if (idMessage) {
                     $("#messaggio-" + idMessage).addClass("active");
                 }
+
             } else {
                 var messaggi = '<td class="text-center" colspan="4">Non ci sono messaggi da leggere</td>';
                 $("<tr/>").append(messaggi).appendTo("#table-messaggi");
@@ -463,6 +504,7 @@ function controlScadenza(dateStr) {
 /** ALARM VEICOLI */
 function controlAlarm(id) {
     var alarm = 0;
+    var important = 0;
     //console.log("ID: " + id);
     var data = searchData(id);
     //console.log("DATA Interventi: ", data);
@@ -470,7 +512,7 @@ function controlAlarm(id) {
     $(".list-not-alarm").addClass("hide");
     $(".list-not-alarm span").text("");
     
-    if (data.stato != "Venduta") {
+    if (data.stato != "Venduta" && data.km > 0) {
         /* SCADENZA TAGLIANDO */
         var km = data.km;
         if (data.ultimo_tagliando) {
@@ -480,26 +522,30 @@ function controlAlarm(id) {
         var tagliandokm = km / data.tagliando;
         var prossimo = Math.ceil(tagliandokm) * data.tagliando;
         var textAlarm = "";
-        if (data.ultimo_tagliando) {
+        //console.log("tagliando: ", data.tagliando);
+        //console.log("KM " + data.id + ": ", data.km);
+         if (data.ultimo_tagliando) {
             prossimo = parseInt(data.ultimo_tagliando) + parseInt(data.tagliando);
             var trakm = prossimo - km;
             $("#prossimo-tagliando span").text(trakm);
         } else {
+            //console.log("KM", km)
             var trakm = prossimo - km;
             $("#prossimo-tagliando span").text(trakm);
         }
         //console.log("tagliando: ", prossimo - km);
-        if (data.km > prossimo) {
+        if (data.km >= prossimo) {
             //console.log("ERRORE: ", prossimo);
-            $("#alarm-tagliando").removeClass("hide");
-            $(".alarm-tagliando-not").removeClass("hide");
+            $("#alarm-tagliando-important").removeClass("hide");
+            $(".alarm-tagliando-not-important").removeClass("hide");
             var text = " Tagliando scaduto da ";
-            $(".alarm-tagliando-not span").text(text + (data.km - prossimo));
+            $(".alarm-tagliando-not-important span").text(text + (data.km - prossimo));
             textAlarm += '<li class="list-group-item-dark">' + text + (data.km - prossimo) + ' km</li>';
-            alarm++;
-        }
-
-        if (((prossimo - km) < 3000)) { 
+            if ((data.km - prossimo) > 0) {
+                important++;
+            }
+            important++;
+        } else if (((prossimo - km) < 3000)) { 
             //console.log("ALARM TAGLIANDO: " + data.targa);
             $("#alarm-tagliando").removeClass("hide");
             $(".alarm-tagliando-not").removeClass("hide");
@@ -526,17 +572,18 @@ function controlAlarm(id) {
             $("#prossima-distribuzione span").text(trakm);
         }
 
-        if (data.km > prossimadistr) {
+        if (data.km >= prossimadistr) {
             //console.log("ERRORE: ", prossimadistr);
-            $("#alarm-distribuzione").removeClass("hide");
-            $(".alarm-distribuzione-not").removeClass("hide");
+            $("#alarm-distribuzione-important").removeClass("hide");
+            $(".alarm-distribuzione-not-important").removeClass("hide");
             var text = " Distribuzione scaduta da ";
-            $(".alarm-distribuzione-not span").text(text + (data.km - prossimadistr));
+            $(".alarm-distribuzione-not-important span").text(text + (data.km - prossimadistr));
             textAlarm += '<li class="list-group-item-dark">' + text + (data.km - prossimadistr) + ' km</li>';
-            alarm++;
-        }
-
-        if (((prossimadistr - km) < 5000)) {
+            if ((data.km - prossimadistr) > 0) {
+                important++;
+            }
+            important++;
+        } else if (((prossimadistr - km) < 5000)) {
             $("#alarm-distribuzione").removeClass("hide");
             $(".alarm-distribuzione-not").removeClass("hide");
             var text = " Distribuzione scadrà tra ";
@@ -546,41 +593,93 @@ function controlAlarm(id) {
         }
 
         /* SCADENZA BOLLO */
-        if (data.bollo && (controlScadenza(data.bollo) <= 31)) {
+        giornobollo = giorniMancanti(data.bollo);
+        if (giornobollo <= 0) {
+            var giornobollo = giornobollo * -1;
+            $("#alarm-bollo-important").removeClass("hide");
+            $(".alarm-bollo-not-important").removeClass("hide");
+            $(".alarm-bollo-not-important span").text(giornobollo);
+            textAlarm += '<li class="list-group-item-dark">Il bollo è scaduto da ' + giornobollo + ' giorni</li>';
+            important++;
+        } else if (giorniMancanti(data.bollo) < 30){
             $("#alarm-bollo").removeClass("hide");
             $(".alarm-bollo-not").removeClass("hide");
-            $(".alarm-bollo-not span").text(controlScadenza(data.bollo));
-            textAlarm += '<li class="list-group-item-dark">Il bollo scadrà tra ' + controlScadenza(data.bollo) + ' giorni</li>';
+            $(".alarm-bollo-not span").text(giornobollo);
+            textAlarm += '<li class="list-group-item-dark">Il bollo scadrà tra ' + giornobollo + ' giorni</li>';
             alarm++;
         }
+       
         
         /* SCADENZA ASSICURAZIONE */
-        if (data.assicurazione && (controlScadenza(data.assicurazione) <= 31)) {
+        var giorniass = giorniMancanti(data.assicurazione);
+        //console.log("ASSIC.", giorniass);
+        if (giorniass <= 0) {
+            giorniass = giorniass * -1;
+            $("#alarm-assicurazione-important").removeClass("hide");
+            $(".alarm-assicurazione-not-important").removeClass("hide");
+            $(".alarm-assicurazione-not-important span").text(giorniass);
+            textAlarm += '<li class="list-group-item-dark">Assicurazione scaduta da ' + giorniass + ' giorni</li>';
+            important++;
+        } else if (giorniass < 30) {
             $("#alarm-assicurazione").removeClass("hide");
             $(".alarm-assicurazione-not").removeClass("hide");
-            $(".alarm-assicurazione-not span").text(controlScadenza(data.assicurazione));
-            textAlarm += '<li class="list-group-item-dark">Assicurazione scade tra ' + controlScadenza(data.assicurazione) + ' giorni</li>';
+            $(".alarm-assicurazione-not span").text(giorniass);
+            textAlarm += '<li class="list-group-item-dark">Assicurazione scade tra ' + giorniass + ' giorni</li>';
             alarm++;
         }
+
+        
         /* SCADENZA REVISIONE */
-        if (data.revisione && (controlScadenza(data.revisione) <= 60)) {
+        var giornorevisione = giorniMancanti(data.revisione);
+        if (giornorevisione <= 0) {
+            giornorevisione = giornorevisione * -1;
+            $("#alarm-revisione-important").removeClass("hide");
+            $(".alarm-revisione-not-important").removeClass("hide");
+            $(".alarm-revisione-not-important span").text(giornorevisione);
+            textAlarm += '<li class="list-group-item-dark"> Revisione scaduta da ' + giornorevisione + ' giorni</li>';
+            important++;
+        } else if (giorniMancanti(data.revisione) < 30) {
             $("#alarm-revisione").removeClass("hide");
             $(".alarm-revisione-not").removeClass("hide");
-            $(".alarm-revisione-not span").text(controlScadenza(data.revisione));
-            textAlarm += '<li class="list-group-item-dark"> Revisione scade tra' + controlScadenza(data.revisione) + ' giorni</li>';
+            $(".alarm-revisione-not span").text(giornorevisione);
+            textAlarm += '<li class="list-group-item-dark"> Revisione scade tra ' + giornorevisione + ' giorni</li>';
             alarm++;
         }
+
+       
+    } else {
+        $("#prossimo-tagliando span").text(data.tagliando);
+        $("#prossima-distribuzione span").text(data.distribuzione);
     }
-   
-    if (alarm > 0) {
+    if (important > 0) {
         $("#id-car-" + id).css("color", "#FF0000");
+        $("#id-car-" + id).addClass("fa-fade");
         //console.log("ALARM: " + alarm + "ID: " + id);
+        statoveicoli[2] = statoveicoli[2] + 1;
+        $("#id-car-" + id).tooltip({
+            placement: "right",
+            title: '<ul class="list-group list-group-flush bg-dark">' + textAlarm + '</ul>',
+            html: true,
+        });
+    } else if (alarm > 0) {
+        $("#id-car-" + id).css("color", "#FFD43B");
+        //console.log("ALARM: " + alarm + "ID: " + id);
+        statoveicoli[1] = statoveicoli[1] + 1;
         $("#id-car-" + id).tooltip({
             placement: "right",
             title: '<ul class="list-group list-group-flush bg-dark">' + textAlarm + '</ul>',
             html: true,
         });
     }
+    if ((important == 0) && (alarm == 0)) {
+        statoveicoli[0] = statoveicoli[0] + 1;
+    }
+   /* if (important > 0) {
+        $("#id-car-" + id).css("color", "#FF0000");
+        $("#id-car-" + id).addClass("fa-fade");
+    }*/
+    //console.log("STATO VEICOLI ALARM", statoveicoli);
+   // dunutsDiagarm();
 }
 
 /** FORMAT DATA */
@@ -618,7 +717,33 @@ function controlFileType(file) {
     if ((file.type != "application/pdf") && (file.type != "image/png") && (file.type != "image/jpeg")) {
         result = false;
     } else if (size > 10) {
-        console.log("SIZE: ", size);
+        //console.log("SIZE: ", size);
+        result = false;
+    }
+    return result;
+}
+
+function controlFileTypeAll(file) {
+    var result = true;
+    var size = (file.size / 1024 / 1024).toFixed(2);
+   // console.log("TIPO FILE", file.type);
+    if ((file.type != "application/pdf") && (file.type != "application/msword") && (file.type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document") && (file.type != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") && (file.type != "image/png") && (file.type != "image/jpeg")) {
+        result = false;
+    } else if (size > 10) {
+        //console.log("SIZE: ", size);
+        result = false;
+    }
+    return result;
+}
+
+function controlFileTypeDoc(file) {
+    var result = true;
+    var size = (file.size / 1024 / 1024).toFixed(2);
+
+    if ((file.type != "application/pdf") && (file.type != "application/msword") && (file.type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
+        result = false;
+    } else if (size > 10) {
+        //console.log("SIZE: ", size);
         result = false;
     }
     return result;
@@ -630,7 +755,7 @@ function controlFileTypeImg(file) {
     if ((file.type != "image/png") && (file.type != "image/jpeg")) {
         result = false;
     } else if (size > 10) {
-        console.log("SIZE: ", size);
+        //console.log("SIZE: ", size);
         result = false;
     }
     return result;
@@ -680,7 +805,7 @@ var ExcelToJSON = function () {
                 var productList = JSON.parse(JSON.stringify(XL_row_object));
 
                 var rows = $('#tblItems tbody');
-                console.log("productList: ", productList);
+                //console.log("productList: ", productList);
                 for (i = 0; i < productList.length; i++) {
                     var columns = Object.values(productList[i])
                     /*rows.append(`
@@ -725,11 +850,21 @@ function searchElement(type, voce, element) {
     return resp;
 }
 
+function searchValueForId(element, id) {
+    var resp = "";
+    for (var a = 0; a < element.length; a++) {
+        if (element[a].id == id) {
+            resp = element[a];
+        }
+    }
+    return resp;
+}
+
 function searchUserName(name) {
     var resp = "";
     for (var a = 0; a < users.length; a++) {
         var nomi = users[a].nome + " " + users[a].cognome;
-        console.log("RESP USER SEARCH", nomi);
+        //console.log("RESP USER SEARCH", nomi);
         if (name == nomi) {
             resp = users[a].id;
         }
@@ -764,7 +899,7 @@ function resizeIframe(altezza) {
         var heightIframe = altezzaW - headerH - titoloH;
 
         $("#iframe-dim").css("height", heightIframe + "px");
-        console.log("ALTEZZA PAGINA: ", heightIframe);
+        //console.log("ALTEZZA PAGINA: ", heightIframe);
     }
 }
 
@@ -777,7 +912,7 @@ $(window).resize(function () {
         var heightIframe = altezzaW - headerH - titoloH - 30;
 
         $("#iframe-dim").css("height", heightIframe + "px");
-        console.log("ALTEZZA PAGINA -- RESIZE --: ", heightIframe);
+        //console.log("ALTEZZA PAGINA -- RESIZE --: ", heightIframe);
     }
     
 });
@@ -794,7 +929,7 @@ function callRegione(select) {
             if (result.responseJSON) {
                var regioni = result.responseJSON;
             regioniTotal = result.responseJSON;
-            console.log("REGIONI", regioni);
+            //console.log("REGIONI", regioni);
             for (var a = 0; a < regioni.length; a++) {
                 var element = '<option value="' + regioni[a].codice_regione + '">' + regioni[a].denominazione_regione + '</option>';
                 $("#" + select).append(element);
@@ -826,7 +961,7 @@ function callProv(input, select, selected) {
         dataType: 'json', //restituisce un oggetto JSON
         complete: function (result) {
             var province = result.responseJSON;
-            console.log("PROVINCE", province);
+            //console.log("PROVINCE", province);
             $(".input-localization").empty();
             var element = '<option value="" selected>Provincia</option>';
             $("#" + select).append(element);
@@ -844,7 +979,7 @@ function callProv(input, select, selected) {
 
 function callComuni(input, select, selected, prov) {
     var provincia = $("#" + input).val() || prov;
-    console.log("provincia", provincia);
+    //console.log("provincia", provincia);
     $("#" + select).prop("disabled", true);
     $.ajax({
         method: "POST",
@@ -853,7 +988,7 @@ function callComuni(input, select, selected, prov) {
         dataType: 'json', //restituisce un oggetto JSON
         complete: function (result) {
             var comuni = result.responseJSON;
-            console.log("COMUNI", comuni);
+            //console.log("COMUNI", comuni);
             $("#" + select).empty();
             var element = '<option value="" selected>Comune</option>';
             $("#" + select).append(element);
@@ -866,5 +1001,113 @@ function callComuni(input, select, selected, prov) {
             $("#" + select).val(selected);
         }
     });
+}
+function logoutHeader() {
+    window.location.href = '../portale/logout.php';
+}
+function readCookieGeneral() {
+    $.ajax({
+        method: "GET",
+        url: "../portale/api/getCookie.php",
+        dataType: 'json',
+        success: function (data) {
+            return data;
+        },
+        error: function (error) {
+            console.log("funzione chiamata quando la chiamata fallisce", error);
+        }
+    });
+}
+
+function checkDate(inputDate) {
+    var parts = inputDate.split('/');
+    var day = parseInt(parts[0], 10);
+    var month = parseInt(parts[1], 10) - 1; 
+    var year = parseInt(parts[2], 10);
+
+    var inputParsedDate = new Date(year, month, day);
+
+    var today = new Date();
+    today.setHours(0, 0, 0, 0); 
+
+    if (inputParsedDate < today) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function giorniMancanti(dataInput) {
+    let parti = dataInput.split('/');
+    let giorno = parseInt(parti[0], 10);
+    let mese = parseInt(parti[1], 10) - 1; 
+    let anno = parseInt(parti[2], 10);
+    let dataFutura = new Date(anno, mese, giorno);
+
+    let oggi = new Date();
+
+    let differenzaTempo = dataFutura - oggi;
+
+    let differenzaGiorni = Math.ceil(differenzaTempo / (1000 * 60 * 60 * 24));
+
+   /* if (differenzaGiorni > 0) {
+        console.log("Mancano " + differenzaGiorni + " giorni a " + dataInput);
+    } else if (differenzaGiorni === 0) {
+        console.log("Oggi è il giorno " + dataInput);
+    } else {
+        console.log("La data " + dataInput + " è già passata.");
+    }*/
+
+    return differenzaGiorni;
+}
+
+function openCarica() {
+    $("#loadingModal").modal('show');
+}
+//openCarica();
+function closeCarica() {
+    setTimeout(function () {
+        $("#loadingModal").modal('hide');
+    }, 1000);
+}
+
+function emptyNullValue(val) {
+    //console.log("VAL: ", val);
+    if (val == null) {
+        val = "";
+    }
+    return val;
+}
+
+function isValidEmail(email) {
+    // Espressione regolare per validare l'email
+    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+}
+
+function watchTabellaTooltips() {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    $(".page-link").on("click", function () {
+        //console.log("CAMBIO PAGINA");
+        watchTabellaTooltips();
+    });
+    $('select[name="tabella_length"]').on("change", function () {
+       // console.log("Modifico lunghezza tabella");
+        watchTabellaTooltips();
+
+    });
+    $('#dt-search-0').keyup(function () {
+        watchTabellaTooltips();
+    });
+}
+
+function formatCurrency(numero) {
+     let formatoEuro = new Intl.NumberFormat('it-IT', {
+        style: 'currency',
+        currency: 'EUR'
+    }).format(numero);
+
+    return formatoEuro;
 }
 

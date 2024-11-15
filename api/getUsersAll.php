@@ -2,7 +2,7 @@
 require_once "../../portale/cors.php";
 require_once "../../portale/config.php";
 
-$sql = "SELECT * FROM `user`";
+$sql = "SELECT * FROM `user` ORDER BY `user`.`cognome` ASC ";
 $result = $conn->query($sql);
 $data = array();
 

@@ -4,7 +4,7 @@ require_once "../../portale/config.php";
 require_once "../../portale/utility.php";
 require_once "../../portale/api/getUserCoockie.php";
 
-$sql = "SELECT * FROM `messaggi` WHERE `assegnatoa` = " . $user_params->id. " ORDER BY `id` DESC";
+$sql = "SELECT * FROM `messaggi` WHERE `assegnatoa` = " . $user_params->id. " AND `archiviato` = 0 ORDER BY `id` DESC";
 $result = $conn->query($sql);
 $data = array();
 

@@ -4,6 +4,7 @@ $servername = "127.0.0.1:3306";
 $username = "Admin";
 $password = "p4ssw0rd";
 $dbname = "easysw";
+$dbname2 = "easysw";
 
 // email params
 $emailAddr = "info@easysw.it";
@@ -18,6 +19,9 @@ $test = true;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
+
+// Connessione Db Gestionale
+$conn2 = new mysqli($servername, $username, $password, $dbname2);
 
 // Check connection
 if ($conn->connect_error) {

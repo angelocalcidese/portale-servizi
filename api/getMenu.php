@@ -31,7 +31,7 @@ if (isset($_COOKIE["easySW"])) {
                 $section->voce = $row["voce"];
                 $section->id = $row["id"];
                 $section->link = array();
-                $section->user = $user_params;
+                //$section->user = $user_params;
 
                 //$key = array_search($row["id"], $permission);
                 //print_r($key);
@@ -41,6 +41,7 @@ if (isset($_COOKIE["easySW"])) {
                 if ($result1->num_rows > 0) {
                     while ($row1 = $result1->fetch_assoc()) {
                         $voice = new stdClass();
+                        $voice->id = $row1["id"];
                         $voice->dicitura = $row1["voce"];
                         $voice->url = $row1["url"];
                         $voice->icon = $row1["icon"];

@@ -30,14 +30,7 @@
             <span></span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" href="../portale/logout.php">
-            <svg class="bi">
-              <use xlink:href="#door-closed" />
-            </svg>
-            Sign out
-          </a>
-        </li>
+        
       </ul>
     </div>
   </div>

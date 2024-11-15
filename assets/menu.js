@@ -108,6 +108,7 @@ function callMenu() {
         dataType: 'json',
         success: function (data) {
             menu = data;
+            console.log("MENU", data);
             populateMenu(data);
             createRow();
             readCookie();

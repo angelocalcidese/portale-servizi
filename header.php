@@ -14,12 +14,12 @@
   </symbol>
 </svg>
 <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-  <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
+  <!--<button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
     <svg class="bi my-1 theme-icon-active" width="1em" height="1em">
       <use href="#circle-half"></use>
     </svg>
     <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
-  </button>
+  </button>-->
   <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
     <li>
       <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
@@ -64,25 +64,27 @@
       <span class="sr-only">Loading...</span>
     </div>
   </a>
-  <div class="mt-2 menu-button" >
-    <button type="button" class="btn btn-light position-relative mx-1 butt-menu-smart" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+  <div class="mt-2 menu-button">
+    <button type="button" class="btn btn-light position-relative mx-1 btn-sm butt-menu-smart" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fa-solid fa-bars"></i>
     </button>
-    <button type="button" class="btn btn-light position-relative mx-1 " id="button-bell" onclick="openNotifiche()">
+    <button type="button" class="btn btn-light position-relative btn-sm mx-1 " id="button-bell" onclick="openNotifiche()">
       <div id="bell-off"><i class=" fa-solid fa-bell fa-lg"></i></div>
       <div id="bell-on" class="hide"><i class=" fa-solid fa-bell fa-shake fa-lg" style="color: #f18e04;"></i></div>
       <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="count-notifiche">
         0
       </span>
     </button>
-    <button type="button" class="btn btn-light position-relative mx-1" id="button-message" onclick="openMessage()">
+    <button type="button" class="btn btn-light position-relative btn-sm mx-1" id="button-message" onclick="openMessage()">
       <div id="mess-off"><i class="fa-solid fa-envelope fa-lg"></i></div>
       <div id="mess-on" class="hide"><i class="fa-solid fa-envelope fa-lg fa-beat-fade"></i></div>
       <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="count-message">
         0
       </span>
     </button>
-
+    <button type="button" class="btn btn-light position-relative btn-sm mx-2" style="" data-bs-toggle="modal" data-bs-target="#logoutModal">
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </button>
   </div>
 </header>
 
