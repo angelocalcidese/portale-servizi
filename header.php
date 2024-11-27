@@ -82,8 +82,11 @@
         0
       </span>
     </button>
-    <button type="button" class="btn btn-light position-relative btn-sm mx-2" style="" data-bs-toggle="modal" data-bs-target="#logoutModal">
+    <!-- <button type="button" class="btn btn-light position-relative btn-sm mx-2" data-bs-toggle="modal" data-bs-target="#logoutModal">
       <i class="fa-solid fa-right-from-bracket"></i>
+    </button>-->
+    <button type="button" class="btn btn-light position-relative btn-sm mx-2" data-bs-toggle="modal" data-bs-target="#AccountModal">
+      <i class="fa-solid fa-user fa-lg"></i>
     </button>
   </div>
 </header>

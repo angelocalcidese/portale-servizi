@@ -234,3 +234,10 @@ max-width:100%;
     color:#476c62;
     text-decoration: underline;
 }
+.dragModal.modal-header {
+    cursor: move;
+}
+.dataTable {
+    font-size: 13px;
+    /* Cambia il font per tutte le tabelle */
+}

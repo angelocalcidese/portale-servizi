@@ -1063,6 +1063,9 @@ function giorniMancanti(dataInput) {
 
 function openCarica() {
     $("#loadingModal").modal('show');
+    setTimeout(function () {
+        $("#loadingModal").modal('hide');
+    }, 30000);
 }
 //openCarica();
 function closeCarica() {
@@ -1070,7 +1073,9 @@ function closeCarica() {
         $("#loadingModal").modal('hide');
     }, 1000);
 }
-
+function closeCaricaImportant() { 
+    $("#loadingModal").modal('hide');
+}
 function emptyNullValue(val) {
     //console.log("VAL: ", val);
     if (val == null) {
@@ -1109,5 +1114,124 @@ function formatCurrency(numero) {
     }).format(numero);
 
     return formatoEuro;
+}
+
+function caricaImgProfilo(location) {
+    var file = $("#file-profilo-img").val();
+    var err = 0;
+    if (file != "") {
+        var upload = document.querySelector('#file-profilo-img').files[0];
+        console.log("TYPE FILE", upload);
+        if (!controlFileTypeImg(upload)) {
+            err++;
+            $("#file-profilo-img").addClass("is-invalid");
+        }
+    } else {
+        err++;
+        $("#file-profilo-img").addClass("is-invalid");
+    }
+
+    if (err == 0) {
+        $("#file-profilo-img").removeClass("is-invalid");
+        uploadProfileImg(upload, location);
+    }
+}
+
+function abilitaCaricaImgProf(){
+    var file = $("#file-profilo-img").val();
+    if (file != "") { 
+        $("#carica-img-profilo").prop("disabled", false);
+    } else {
+        $("#carica-img-profilo").prop("disabled", true);
+    }
+}
+
+function uploadProfileImg(upload, location) {
+
+    var filenome = upload.name;
+    var fileIntName = filenome.split(".");
+    var namefile = "imgprofilo";
+    var user = null;
+    if (location == "account") user = coockieUser.id
+    if (location == "utenzadipendenti")  user = viewuser;
+    var reader = new FileReader();
+    reader.readAsDataURL(upload);
+    reader.onload = function () {
+        file = reader.result;
+        //console.log("FILE:", file);
+        $.ajax({
+            url: '../portale/api/insertImgProfilo.php',
+            method: "POST",
+            data: JSON.stringify({ file: file, namefile: namefile, id: user, estensione: fileIntName[1] }),
+            dataType: 'json', //restituisce un oggetto JSON
+            complete: function (cv) {
+                $("#file-profilo-img").addClass("is-valid");
+                $("#file-profilo-img").val("");
+                $("#carica-img-profilo").prop("disabled", true);
+                if (location == "account") callUserValue();
+                if (location == "utenzadipendenti") closeModal();
+            }
+        });
+    }
+}
+
+const makeModalDraggable = (modal) => {
+    const header = modal.querySelector('.modal-header');
+    const dialog = modal.querySelector('.modal-dialog');
+
+    let isDragging = false;
+    let startX, startY, offsetX, offsetY;
+
+    header.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        const rect = dialog.getBoundingClientRect();
+        offsetX = startX - rect.left;
+        offsetY = startY - rect.top;
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
+
+    const onMouseMove = (e) => {
+        if (isDragging) {
+            const left = e.clientX - offsetX;
+            const top = e.clientY - offsetY;
+            dialog.style.transform = `translate(${left}px, ${top}px)`;
+            dialog.style.transition = "none";
+        }
+    };
+
+    const onMouseUp = () => {
+        isDragging = false;
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+    };
+};
+
+/** Aggiungo giorni ad una data saltando Domeniche e festivi **/
+
+var holidays = [];// AGGIUNGERE GIORNI AD UNA DATA SALTANDO DOMENICA E FESTIVI servizio getFestivi.php
+
+// Funzione per verificare se una data è domenica o festiva
+function isHolidayOrSunday(date) {
+    const day = date.getDay(); // 0 = Domenica
+    const formattedDate = date.toISOString().split('T')[0]; // Formatta in YYYY-MM-DD
+    return day === 0 || holidays.includes(formattedDate);
+}
+
+// Funzione per aggiungere giorni saltando domeniche e festivi
+function addWorkingDays(startDate, daysToAdd) {
+    let currentDate = new Date(startDate);
+    let addedDays = 0;
+
+    while (addedDays < daysToAdd) {
+        currentDate.setDate(currentDate.getDate() + 1); // Aggiungi un giorno
+        if (!isHolidayOrSunday(currentDate)) {
+            addedDays++; // Incrementa solo se non è domenica o festivo
+        }
+    }
+    return currentDate;
 }
 

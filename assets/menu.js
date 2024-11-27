@@ -131,10 +131,17 @@ function createRow() {
         row.find(".card-home").append('<h6>' + menu[a].voce + '</h6>');
         row.find(".card-home").addClass("titleGroup");
         row.attr('onclick', 'togleMenuCollapse(' + menu[a].id + ')');
+
+        var container = '<fieldset class="border rounded p-1" id="' + dash + '">';
+        container += '<legend class="float-none w-auto  px-2 pt-2" style="font-weight:bold; font-size: 15px;">';
+        container += menu[a].voce + '</legend><div class="container"><div class="row card-style"></div></div></fieldset>';
+
         if (link.length) {
-            $("#dashboard-grid").append(row);
+            //$("#dashboard-grid").append(row);
+            $("#dashboard-grid").append(container);
         }
 
+        
 
         for (var b = 0; b < link.length; b++) {
             var row2 = $("#dashboard-clone .card-home").clone();
@@ -142,6 +149,7 @@ function createRow() {
             row2.append('<h6>' + link[b].dicitura + '</h6>');
             row2.attr("href", "/" + link[b].url);
             $("#" + dash + " .card-style").append(row2);
+            //$("#" + dash ).append(row2);
         }
     }
 }

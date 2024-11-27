@@ -111,7 +111,7 @@
 </div>
 
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Sei sicuro di voler uscire?</h5>
@@ -124,6 +124,31 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
                 <button type="button" class="btn btn-primary" onclick="logoutHeader()">OK</button>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="AccountModal" tabindex="-1" aria-labelledby="AccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p class="mb-4 text-center h4">Preferenze</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <div class="d-grid gap-2">
+                                <a type="button" class="btn btn-outline-secondary" href="/portale/account.php"><i class="fa-solid fa-user fa-2xl"></i> <label>Account</label></a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="d-grid gap-2">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fa-solid fa-right-from-bracket fa-2xl"></i> <label>Log Out</label> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

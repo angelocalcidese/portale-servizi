@@ -25,12 +25,12 @@
       <hr class="my-3">
       <ul class="nav flex-column mb-auto">
         <li class="nav-item">
-          <a class="nav-link d-flex align-items-center gap-2" id="user-login" href="#">
+          <a class="nav-link d-flex align-items-center gap-2" id="user-login" href="../portale/account.php">
             <i class="fa-regular fa-user"></i>
             <span></span>
           </a>
         </li>
-        
+
       </ul>
     </div>
   </div>
